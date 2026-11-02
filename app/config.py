@@ -3,7 +3,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-INSTANCE_DIR = BASE_DIR / "instance"
+# On Render, /opt/render/project is ephemeral; use /tmp for the DB
+import os as _os
+if _os.environ.get("RENDER"):
+    INSTANCE_DIR = Path("/tmp/instance")
+else:
+    INSTANCE_DIR = BASE_DIR / "instance"
 INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
 load_dotenv(BASE_DIR / ".env")
 
