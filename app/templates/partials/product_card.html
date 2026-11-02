@@ -1,0 +1,58 @@
+<article class="product-card tilt group bg-white rounded-2xl overflow-hidden border border-beige">
+  <a href="{{ url_for('main.product', slug=product.slug) }}" class="block aspect-[4/5] bg-beige overflow-hidden">
+    {% if product.image %}
+      <img src="{{ product.image|small if product.image and product.image.startswith('http') else url_for('static', filename=product.image) }}"
+           alt="{{ product.name }}" class="w-full h-full object-cover" loading="lazy" decoding="async">
+    {% else %}
+      <div class="w-full h-full grid place-items-center font-display text-2xl text-charcoal/40">{{ product.name[:1] }}</div>
+    {% endif %}
+  </a>
+  <div class="p-4">
+    <div class="text-xs uppercase tracking-wider text-grey">{{ product.category.name }}</div>
+    <h3 class="font-display text-lg mt-1 leading-snug">{{ product.name }}</h3>
+    {% if product.is_low_stock %}
+      <div class="text-xs text-amber-700 mt-1">Only {{ product.stock }} left</div>
+    {% endif %}
+    <div class="mt-2 flex items-center justify-between">
+      <span class="font-semibold">{{ product.price|money }}</span>
+      {% if product.in_stock %}
+        <form method="post" action="{{ url_for('cart.add') }}">
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button class="text-sm bg-charcoal text-ivory px-3 py-1.5 rounded-full hover:bg-oak transition-colors">Add to cart</button>
+        </form>
+      {% else %}
+        <span class="text-xs text-red-600">Out of stock</span>
+      {% endif %}
+    </div>
+  </div>
+</article>
+<article class="product-card tilt group bg-white rounded-2xl overflow-hidden border border-beige">
+  <a href="{{ url_for('main.product', slug=product.slug) }}" class="block aspect-[4/5] bg-beige overflow-hidden">
+    {% if product.image %}
+      <img src="{{ product.image|small if product.image and product.image.startswith('http') else url_for('static', filename=product.image) }}"
+           alt="{{ product.name }}" class="w-full h-full object-cover" loading="lazy" decoding="async">
+    {% else %}
+      <div class="w-full h-full grid place-items-center font-display text-2xl text-charcoal/40">{{ product.name[:1] }}</div>
+    {% endif %}
+  </a>
+  <div class="p-4">
+    <div class="text-xs uppercase tracking-wider text-grey">{{ product.category.name }}</div>
+    <h3 class="font-display text-lg mt-1 leading-snug">{{ product.name }}</h3>
+    {% if product.is_low_stock %}
+      <div class="text-xs text-amber-700 mt-1">Only {{ product.stock }} left</div>
+    {% endif %}
+    <div class="mt-2 flex items-center justify-between">
+      <span class="font-semibold">{{ product.price|money }}</span>
+      {% if product.in_stock %}
+        <form method="post" action="{{ url_for('cart.add') }}">
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button class="text-sm bg-charcoal text-ivory px-3 py-1.5 rounded-full hover:bg-oak transition-colors">Add to cart</button>
+        </form>
+      {% else %}
+        <span class="text-xs text-red-600">Out of stock</span>
+      {% endif %}
+    </div>
+  </div>
+</article>

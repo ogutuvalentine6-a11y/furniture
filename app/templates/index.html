@@ -1,0 +1,401 @@
+{% extends 'base.html' %}
+{% block title %}FurnitureHub · Group 11 — Full-Stack Furniture Commerce{% endblock %}
+{% block content %}
+
+{# ═══════════════════════════════════════════════════════════════
+   GROUP 11 — CINEMATIC HERO (FRONT OF PAGE)
+   ═══════════════════════════════════════════════════════════════ #}
+<section class="relative bg-charcoal text-ivory overflow-hidden">
+
+  <!-- Ambient background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="g11-orb-a absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-oak/25 rounded-full blur-[140px]"></div>
+    <div class="g11-orb-b absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-yellow-500/10 rounded-full blur-[120px]"></div>
+    <div class="absolute inset-0 opacity-[0.04]"
+         style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 60px 60px;"></div>
+    <div class="absolute -top-40 -right-40 w-[400px] h-[400px] bg-oak/15 rounded-full blur-[100px]"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
+
+    <!-- Live status pill -->
+    <div class="flex justify-center mb-8">
+      <div class="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.03] border border-oak/30 rounded-full backdrop-blur-sm">
+        <span class="g11-live-dot"></span>
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-oak font-medium">PA106 · Group Project · 2025</span>
+      </div>
+    </div>
+
+    <!-- Giant heading -->
+    <h1 class="font-display text-center text-5xl sm:text-7xl lg:text-8xl xl:text-9xl leading-[0.95] mb-6 tracking-tight">
+      Group <span class="gradient-text-gold">11</span>
+    </h1>
+
+    <!-- Subheading -->
+    <p class="text-center max-w-2xl mx-auto text-ivory/60 text-base sm:text-lg lg:text-xl leading-relaxed mb-3">
+      Ten people. One vision. A full-stack furniture commerce platform built from scratch.
+    </p>
+    <p class="text-center text-[10px] sm:text-xs text-ivory/40 mb-12 tracking-wider uppercase">
+      Flask · SQLite · Jinja2 · Tailwind CSS
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-wrap justify-center gap-3 mb-14">
+      <a href="{{ url_for('auth.login') }}"
+         class="inline-flex items-center gap-2 bg-oak text-charcoal px-7 py-3.5 rounded-full font-semibold hover:bg-ivory transition-all hover:scale-105 shadow-lg shadow-oak/30">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        Administration
+      </a>
+      <a href="{{ url_for('main.shop') }}"
+         class="inline-flex items-center gap-2 border border-ivory/20 text-ivory px-7 py-3.5 rounded-full font-medium hover:border-oak hover:text-oak transition-all">
+        Explore store
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Team grid -->
+    {% set members = [
+      ("Brian Ouma Ochieng",     "PA106/G/28812/25", "Lead Dev"),
+      ("Ogutu Valentine Otieno", "PA106/G/28813/25", "Backend"),
+      ("Kiprotich Collins",      "PA106/G/28814/25", "Database"),
+      ("Elvine Bala Adidwa",     "PA106/G/28815/25", "UI/UX"),
+      ("Oyier Edward Hamilton",  "PA106/G/28816/25", "Frontend"),
+      ("Otieno Felix Omondi",    "PA106/G/28817/25", "QA"),
+      ("Aldrine Warren",         "PA106/G/28818/25", "DevOps"),
+      ("Ongaki Raynold Oruru",   "PA106/G/28820/25", "Frontend"),
+      ("Onyancha Felix Moinde",  "PA106/G/28821/25", "Backend"),
+      ("Bikeri Kevin Jaribu",    "PA106/G/28822/25", "Design"),
+    ] %}
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 max-w-6xl mx-auto">
+      {% for name, reg, role in members %}
+        {% set parts = name.strip().split() %}
+        {% set initials = (parts[0][0] if parts|length > 0 else '') ~ (parts[-1][0] if parts|length > 1 else '') %}
+        <div class="g11-card">
+          <div class="g11-card-glow"></div>
+          <div class="g11-inner">
+            <div class="g11-shimmer"></div>
+            <div class="relative flex items-start justify-between mb-3">
+              <div class="g11-avatar">{{ initials|upper }}</div>
+              <span class="g11-role">{{ role }}</span>
+            </div>
+            <div class="g11-name">{{ name }}</div>
+            <div class="g11-reg">{{ reg }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Bottom scroll hint -->
+    <div class="text-center mt-14">
+      <a href="#store" class="inline-flex flex-col items-center gap-2 text-ivory/40 hover:text-oak transition-colors text-xs uppercase tracking-[0.25em]">
+        <span>Enter store</span>
+        <svg class="g11-scroll-hint w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div id="store"></div>
+
+{# ── Free delivery banner ── #}
+<div class="bg-oak text-charcoal text-xs sm:text-sm text-center py-2.5 px-4 font-medium">
+  Free delivery on orders over <strong>{{ free_delivery_threshold|money }}</strong>
+  <span class="hidden sm:inline">— shop now and skip the delivery fee</span>
+</div>
+
+{# ── Marquee ── #}
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Free delivery over {{ free_delivery_threshold|money }}</span>
+    <span>Handcrafted in Kenya</span>
+    <span>30-day easy returns</span>
+    <span>Real human support</span>
+    <span>World-class quality</span>
+    <span>Trusted by Group 11</span>
+    <span>Free delivery over {{ free_delivery_threshold|money }}</span>
+    <span>Handcrafted in Kenya</span>
+    <span>30-day easy returns</span>
+    <span>Real human support</span>
+    <span>World-class quality</span>
+    <span>Trusted by Group 11</span>
+  </div>
+</div>
+
+{# ── Store hero ── #}
+<section class="relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <div class="text-xs uppercase tracking-[0.2em] text-oak mb-4">New Collection — 2025</div>
+      <h2 class="font-display text-5xl lg:text-6xl leading-[1.05]">
+        Furniture that makes a house feel like a home.
+      </h2>
+      <p class="mt-6 text-grey max-w-md">Thoughtfully designed pieces, built from honest materials. Delivered across Kenya to your door with care.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="{{ url_for('main.shop') }}" class="bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">Shop the collection</a>
+        <a href="{{ url_for('main.about') }}" class="px-6 py-3 rounded-full border border-charcoal hover:bg-charcoal hover:text-ivory transition-colors">Our story</a>
+      </div>
+    </div>
+    <div class="relative reveal">
+      <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=75"
+           alt="Warm living room" class="w-full h-[480px] object-cover rounded-3xl"
+           fetchpriority="high" decoding="async">
+      <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-lg p-4 hidden md:block">
+        <div class="text-xs text-grey">Free delivery</div>
+        <div class="font-display text-lg">On orders over {{ free_delivery_threshold|money }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── Stats ── #}
+<section class="border-y border-beige bg-white/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center reveal">
+    <div>
+      <div class="font-display text-4xl lg:text-5xl text-oak"><span data-counter="{{ stats.products }}">0</span>+</div>
+      <div class="text-sm text-grey mt-2">Curated pieces</div>
+    </div>
+    <div>
+      <div class="font-display text-4xl lg:text-5xl text-oak"><span data-counter="{{ stats.categories }}">0</span></div>
+      <div class="text-sm text-grey mt-2">Collections</div>
+    </div>
+    <div>
+      <div class="font-display text-4xl lg:text-5xl text-oak">30</div>
+      <div class="text-sm text-grey mt-2">Day easy returns</div>
+    </div>
+    <div>
+      <div class="font-display text-4xl lg:text-5xl text-oak">24/7</div>
+      <div class="text-sm text-grey mt-2">Customer support</div>
+    </div>
+  </div>
+</section>
+
+{# ── Categories ── #}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 reveal">
+  <div class="flex items-end justify-between mb-10">
+    <div>
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Browse</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">Shop by category</h2>
+    </div>
+    <a href="{{ url_for('main.shop') }}" class="hidden sm:inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal">
+      All categories
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {% for cat in categories[:8] %}
+      {% set cat_img = (cat.products[0].image if cat.products and cat.products[0].image else None) %}
+      <a href="{{ url_for('main.shop', category=cat.slug) }}"
+         class="group relative bg-white border border-beige rounded-2xl overflow-hidden hover:border-charcoal transition-all hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-[4/5] bg-beige overflow-hidden">
+          {% if cat_img %}
+            <img src="{{ cat_img|small(500) }}" alt="{{ cat.name }}"
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                 loading="lazy" decoding="async">
+          {% else %}
+            <div class="w-full h-full grid place-items-center">
+              <span class="font-display text-4xl text-charcoal/20">{{ cat.name[:1] }}</span>
+            </div>
+          {% endif %}
+        </div>
+        <div class="p-4 flex items-center justify-between">
+          <div>
+            <div class="font-display text-lg group-hover:text-oak transition-colors">{{ cat.name }}</div>
+            <div class="text-xs text-grey mt-0.5">{{ cat.products|length }} pieces</div>
+          </div>
+          <svg class="w-5 h-5 text-grey group-hover:text-oak transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{# ── Featured ── #}
+{% if featured %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 reveal">
+  <div class="flex items-end justify-between mb-10">
+    <div>
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Handpicked</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">Featured pieces</h2>
+    </div>
+    <a href="{{ url_for('main.shop') }}" class="hidden sm:inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal">
+      View all
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+    {% for product in featured %}{% include 'partials/product_card.html' %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# ── Why-us ── #}
+<section class="bg-charcoal text-ivory py-20 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.04] pointer-events-none"
+       style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 48px 48px;"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12 reveal">
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">The FurnitureHub way</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">Why our pieces last a lifetime.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+      {% set features = [
+        ("Honest materials", "Solid oak, natural linen, hand-thrown ceramic. The good stuff — nothing hidden, nothing fake."),
+        ("Made to last", "Designed for repair, not replacement. Every piece is built to age beautifully."),
+        ("Delivered with care", "Free white-glove delivery on orders over " ~ (free_delivery_threshold|money) ~ ". We'll place it exactly where you want it."),
+      ] %}
+      {% for title, body in features %}
+        <div class="reveal bg-white/[0.04] border border-white/10 rounded-2xl p-7 hover:border-oak/40 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-oak/15 grid place-items-center mb-5">
+            <svg class="w-6 h-6 text-oak" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74z"/></svg>
+          </div>
+          <h3 class="font-display text-xl mb-2">{{ title }}</h3>
+          <p class="text-sm text-ivory/60 leading-relaxed">{{ body }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ── Bestsellers ── #}
+{% if bestsellers %}
+<section class="bg-beige/40 py-20 reveal">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Most loved</div>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">Best sellers</h2>
+      </div>
+      <a href="{{ url_for('main.shop') }}" class="hidden sm:inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal">
+        Shop all
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {% for product in bestsellers %}{% include 'partials/product_card.html' %}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ── Promo ── #}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 reveal">
+  <div class="relative rounded-3xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=1400&q=75"
+         alt="Delivery" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async">
+    <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/85 to-charcoal/40"></div>
+    <div class="relative p-10 lg:p-16 max-w-2xl text-ivory">
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-3">Limited offer</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight">
+        Free delivery on every order over {{ free_delivery_threshold|money }}.
+      </h2>
+      <p class="text-ivory/70 mt-5 max-w-md leading-relaxed">
+        White-glove delivery straight to your door across Kenya — no assembly required, no hidden fees.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="{{ url_for('main.shop') }}" class="inline-flex items-center gap-2 bg-ivory text-charcoal px-6 py-3.5 rounded-full hover:bg-oak hover:text-ivory transition-colors font-medium">
+          Start shopping
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="{{ url_for('main.about') }}" class="px-6 py-3.5 rounded-full border border-ivory/30 hover:bg-ivory hover:text-charcoal transition-colors font-medium">
+          Learn more
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── New arrivals ── #}
+{% if new_arrivals %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 reveal">
+  <div class="flex items-end justify-between mb-10">
+    <div>
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Just landed</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">New arrivals</h2>
+    </div>
+    <a href="{{ url_for('main.shop') }}" class="hidden sm:inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal">
+      Browse all
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+    {% for product in new_arrivals %}{% include 'partials/product_card.html' %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# ── Testimonials ── #}
+<section class="bg-beige/30 py-20 reveal">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Testimonials</div>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">What our customers say</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {% set reviews = [
+        ("The Aria sofa transformed our living room. Beautiful quality and it arrived earlier than promised.", "Sarah M.", "Nairobi"),
+        ("Customer service was exceptional. They helped me pick the right dining table for my small apartment.", "David K.", "Mombasa"),
+        ("Every piece we've ordered feels considered and well made. We'll be back for more.", "Priya R.", "Kisumu"),
+      ] %}
+      {% for quote, name, location in reviews %}
+        <div class="bg-white rounded-2xl border border-beige p-7">
+          <div class="text-oak text-lg mb-3 tracking-widest">★★★★★</div>
+          <p class="text-sm leading-relaxed text-charcoal/80">{{ quote }}</p>
+          <div class="mt-5 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-oak/20 grid place-items-center font-display text-sm text-oak">{{ name[0] }}</div>
+            <div>
+              <div class="text-sm font-medium">{{ name }}</div>
+              <div class="text-xs text-grey">{{ location }}</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ── FAQ ── #}
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 reveal">
+  <div class="text-center mb-10">
+    <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Questions</div>
+    <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl">Frequently asked</h2>
+  </div>
+  <div class="space-y-3">
+    {% set faqs = [
+      ("How long does delivery take?", "Most orders arrive within 3-7 working days across Kenya. Large items like sofas and dining tables are scheduled with a 2-hour delivery window."),
+      ("Is delivery really free?", "Yes — free on any order over " ~ (free_delivery_threshold|money) ~ ". Below that, a flat " ~ (delivery_fee|money) ~ " delivery fee applies."),
+      ("Can I return an item?", "Absolutely. We offer 30-day easy returns on all stock items, provided they're unused and in their original packaging."),
+      ("What payment methods do you accept?", "Right now we offer cash on delivery across Kenya. Card and mobile money payments are coming soon."),
+      ("Do you assemble the furniture?", "Sofas, beds and dining tables arrive fully assembled. Smaller items come flat-packed with everything you need."),
+    ] %}
+    {% for q, a in faqs %}
+      <details class="group bg-white border border-beige rounded-2xl p-6 hover:border-oak/40 transition-colors">
+        <summary class="font-display text-lg flex items-center justify-between gap-4 cursor-pointer list-none">
+          <span>{{ q }}</span>
+          <svg class="chevron w-5 h-5 text-oak shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <p class="text-grey mt-4 text-sm leading-relaxed">{{ a }}</p>
+      </details>
+    {% endfor %}
+  </div>
+</section>
+
+{# ── Newsletter ── #}
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 reveal">
+  <div class="rounded-3xl bg-charcoal text-ivory p-10 lg:p-14 text-center relative overflow-hidden">
+    <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-oak/20 blur-3xl pointer-events-none"></div>
+    <div class="relative">
+      <div class="text-xs uppercase tracking-[0.25em] text-oak mb-3">Newsletter</div>
+      <h2 class="font-display text-3xl sm:text-4xl">Join the FurnitureHub list</h2>
+      <p class="text-ivory/60 mt-3 max-w-md mx-auto">Early access to new collections, seasonal offers and the occasional design story.</p>
+      <form id="newsletterForm" class="mt-8 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+        <input type="email" name="email" required placeholder="you@example.com"
+               class="flex-1 px-4 py-3 rounded-full bg-white/10 border border-white/20 text-ivory placeholder:text-ivory/40 focus:outline-none focus:border-oak">
+        <button class="bg-oak text-charcoal px-6 py-3 rounded-full hover:bg-ivory transition-colors font-medium">Subscribe</button>
+        <div data-msg class="w-full"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

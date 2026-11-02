@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Sign in — FurnitureHub Admin{% endblock %}
+{% block content %}
+<div class="min-h-[calc(100vh-5rem)] grid lg:grid-cols-2">
+
+  <div class="hidden lg:flex relative bg-charcoal text-ivory overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.06]"
+         style="background-image: linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px); background-size: 44px 44px;"></div>
+    <div class="mesh-blob-a absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full bg-oak/25 blur-3xl"></div>
+    <div class="mesh-blob-b absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-oak/15 blur-3xl"></div>
+
+    <div class="relative z-10 flex flex-col justify-between p-12 xl:p-16 w-full">
+      <div>
+        <a href="{{ url_for('main.index') }}" class="font-display text-2xl">
+          Furniture<span class="text-oak">Hub</span>
+        </a>
+        <div class="mt-3 text-[10px] uppercase tracking-[0.3em] text-oak">Administration</div>
+      </div>
+
+      <div class="max-w-md">
+        <h1 class="font-display text-4xl xl:text-5xl leading-tight">Welcome<br>back.</h1>
+        <p class="text-ivory/60 mt-5 leading-relaxed">Sign in to manage products, orders and customers for FurnitureHub.</p>
+        <ul class="mt-10 space-y-3 text-sm text-ivory/70">
+          <li class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-oak shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Hashed passwords
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-oak shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Protected admin routes
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-oak shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Real database, live counts
+          </li>
+        </ul>
+      </div>
+
+      <div class="text-xs text-ivory/40">
+        <span class="inline-flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-oak animate-pulse"></span>
+          Group 11 · PA106 — 2025
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center px-4 sm:px-8 py-12 lg:py-16">
+    <div class="w-full max-w-sm">
+      <div class="lg:hidden text-center mb-10">
+        <a href="{{ url_for('main.index') }}" class="font-display text-2xl">Furniture<span class="text-oak">Hub</span></a>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-oak mt-2">Administration</div>
+      </div>
+
+      <div class="text-[10px] uppercase tracking-[0.25em] text-oak mb-2">Admin sign in</div>
+      <h2 class="font-display text-3xl">Sign in</h2>
+      <p class="text-grey text-sm mt-2">Enter your credentials to access the dashboard.</p>
+
+      <form method="post" class="mt-8 space-y-4">
+        <div>
+          <label for="username" class="block text-sm font-medium mb-1.5">Username</label>
+          <div class="relative">
+            <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-grey pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            <input id="username" name="username" required autofocus autocomplete="username"
+                   class="w-full pl-10 pr-3 py-3 border border-beige rounded-xl bg-white focus:outline-none focus:border-oak focus:ring-2 focus:ring-oak/20 transition-all">
+          </div>
+        </div>
+
+        <div>
+          <label for="pw" class="block text-sm font-medium mb-1.5">Password</label>
+          <div class="relative">
+            <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-grey pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <input id="pw" name="password" type="password" required autocomplete="current-password"
+                   class="w-full pl-10 pr-11 py-3 border border-beige rounded-xl bg-white focus:outline-none focus:border-oak focus:ring-2 focus:ring-oak/20 transition-all">
+            <button type="button"
+                    onclick="var p=document.getElementById('pw'); var a=this.querySelector('[data-eye-on]'); var b=this.querySelector('[data-eye-off]'); if(p.type==='password'){p.type='text'; a.classList.add('hidden'); b.classList.remove('hidden');} else {p.type='password'; a.classList.remove('hidden'); b.classList.add('hidden');}"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-grey hover:text-oak rounded-md"
+                    aria-label="Toggle password visibility">
+              <svg data-eye-on class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg data-eye-off class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-6.5 0-10-7-10-7a18.7 18.7 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 7 10 7a18.78 18.78 0 0 1-1.62 2.44M1 1l22 22"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <label class="flex items-center gap-2 text-sm text-grey cursor-pointer select-none">
+          <input type="checkbox" name="remember" value="1" class="w-4 h-4 accent-oak">
+          <span>Keep me signed in for 30 days</span>
+        </label>
+
+        <button class="w-full bg-charcoal text-ivory py-3 rounded-xl hover:bg-oak transition-colors font-semibold text-sm tracking-wide">
+          Sign in →
+        </button>
+      </form>
+
+      <div class="mt-8 p-4 bg-beige/60 rounded-xl text-xs text-grey">
+        <div class="font-semibold text-charcoal text-[11px] uppercase tracking-wider mb-2">Demo credentials</div>
+        <div class="flex flex-wrap gap-x-3 gap-y-1">
+          <span>Username <code class="bg-white px-1.5 py-0.5 rounded text-charcoal">admin</code></span>
+          <span>Password <code class="bg-white px-1.5 py-0.5 rounded text-charcoal">admin123</code></span>
+        </div>
+      </div>
+
+      <a href="{{ url_for('main.index') }}" class="block text-center text-sm text-grey hover:text-oak mt-6 transition-colors">← Back to store</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

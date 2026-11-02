@@ -1,0 +1,36 @@
+<footer class="bg-charcoal text-ivory mt-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid md:grid-cols-4 gap-10">
+    <div>
+      <div class="font-display text-2xl">Furniture<span class="text-oak">Hub</span></div>
+      <p class="text-sm text-ivory/70 mt-3 max-w-xs">Quality furniture, thoughtfully made for modern living. Delivered to your door.</p>
+    </div>
+    <div>
+      <div class="font-semibold mb-3">Shop</div>
+      <ul class="space-y-2 text-sm text-ivory/70">
+        <li><a href="{{ url_for('main.shop', category='living-room') }}" class="hover:text-oak">Living Room</a></li>
+        <li><a href="{{ url_for('main.shop', category='bedroom') }}" class="hover:text-oak">Bedroom</a></li>
+        <li><a href="{{ url_for('main.shop', category='dining-room') }}" class="hover:text-oak">Dining Room</a></li>
+        <li><a href="{{ url_for('main.shop', category='office') }}" class="hover:text-oak">Office</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="font-semibold mb-3">Company</div>
+      <ul class="space-y-2 text-sm text-ivory/70">
+        <li><a href="{{ url_for('main.about') }}" class="hover:text-oak">About</a></li>
+        <li><a href="{{ url_for('main.contact') }}" class="hover:text-oak">Contact</a></li>
+        <li><a href="{{ url_for('cart.view') }}" class="hover:text-oak">Cart</a></li>
+        <li><a href="{{ url_for('auth.login') }}" class="hover:text-oak">Admin</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="font-semibold mb-3">Visit</div>
+      <p class="text-sm text-ivory/70">123 Oak Street<br>Portland, OR 97205<br>Mon–Sat, 10am–7pm</p>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 text-xs text-ivory/50 flex justify-between">
+      <span>© 2025 FurnitureHub. All rights reserved.</span>
+      <span>Made with care.</span>
+    </div>
+  </div>
+</footer>

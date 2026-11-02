@@ -1,0 +1,56 @@
+{% extends 'admin/_base.html' %}
+{% block admin_content %}
+<div class="flex items-center justify-between mb-6">
+  <h1 class="font-display text-3xl">Products</h1>
+  <a href="{{ url_for('admin.product_new') }}"
+     class="bg-charcoal text-ivory px-4 py-2 rounded-full hover:bg-oak transition-colors text-sm">+ New product</a>
+</div>
+
+<div class="bg-white border border-beige rounded-2xl overflow-hidden">
+  {% if products %}
+    <table class="w-full text-sm">
+      <thead class="bg-beige/40 text-left">
+        <tr>
+          <th class="px-4 py-3">Product</th>
+          <th class="px-4 py-3">Category</th>
+          <th class="px-4 py-3">Price</th>
+          <th class="px-4 py-3">Stock</th>
+          <th class="px-4 py-3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in products %}
+          <tr class="border-t border-beige">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-beige rounded-lg overflow-hidden shrink-0">
+                  {% if p.image %}
+                    <img src="{{ p.image if p.image.startswith('http') else url_for('static', filename=p.image) }}"
+                         class="w-full h-full object-cover" alt="">
+                  {% endif %}
+                </div>
+                <span class="font-medium">{{ p.name }}</span>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-grey">{{ p.category.name }}</td>
+            <td class="px-4 py-3">{{ p.price|money }}</td>
+            <td class="px-4 py-3">
+              {% if p.stock > 0 %}{{ p.stock }}
+              {% else %}<span class="text-red-600">0</span>{% endif %}
+            </td>
+            <td class="px-4 py-3 text-right space-x-2">
+              <a href="{{ url_for('admin.product_edit', pid=p.id) }}" class="text-oak hover:underline">Edit</a>
+              <form method="post" action="{{ url_for('admin.product_delete', pid=p.id) }}"
+                    data-confirm="Delete {{ p.name }}?" class="inline">
+                <button class="text-red-600 hover:underline">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="p-8 text-center text-grey text-sm">No products yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

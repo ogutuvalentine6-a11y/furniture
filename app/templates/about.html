@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="text-xs uppercase tracking-[0.2em] text-oak mb-3">Our story</div>
+  <h1 class="font-display text-5xl leading-tight">Furniture built to last a lifetime.</h1>
+  <p class="text-grey mt-6 text-lg leading-relaxed">FurnitureHub was founded on a simple idea: great furniture should feel as good as it looks, and it should last. We work with small workshops that share our obsession with materials, joinery, and finish.</p>
+
+  <div class="grid md:grid-cols-3 gap-6 mt-12 text-sm">
+    <div class="bg-white border border-beige rounded-2xl p-6">
+      <div class="font-display text-xl mb-2">Honest materials</div>
+      <p class="text-grey">Solid oak, natural linen, hand-thrown ceramic — the good stuff.</p>
+    </div>
+    <div class="bg-white border border-beige rounded-2xl p-6">
+      <div class="font-display text-xl mb-2">Made to last</div>
+      <p class="text-grey">We design for repair, not replacement. Every piece is built to age beautifully.</p>
+    </div>
+    <div class="bg-white border border-beige rounded-2xl p-6">
+      <div class="font-display text-xl mb-2">Delivered with care</div>
+      <p class="text-grey">Free white-glove delivery on orders over $500. We'll place it right where you want it.</p>
+    </div>
+  </div>
+
+  <div class="mt-14 rounded-3xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=80"
+         alt="Workshop" class="w-full h-80 object-cover">
+  </div>
+</div>
+{% endblock %}

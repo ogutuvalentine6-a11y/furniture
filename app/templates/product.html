@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} — FurnitureHub{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="text-sm text-grey mb-6">
+    <a href="{{ url_for('main.shop') }}" class="hover:text-charcoal">Shop</a>
+    <span class="mx-2">/</span>
+    <a href="{{ url_for('main.shop', category=product.category.slug) }}" class="hover:text-charcoal">{{ product.category.name }}</a>
+    <span class="mx-2">/</span>
+    <span class="text-charcoal">{{ product.name }}</span>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-10">
+    <div class="bg-beige rounded-3xl overflow-hidden aspect-square">
+      {% if product.image %}
+        <img src="{{ product.image|small(800) if product.image.startswith('http') else url_for('static', filename=product.image) }}"
+             alt="{{ product.name }}" class="w-full h-full object-cover"
+             fetchpriority="high" decoding="async">
+      {% else %}
+        <div class="w-full h-full grid place-items-center font-display text-6xl text-charcoal/30">{{ product.name[:1] }}</div>
+      {% endif %}
+    </div>
+
+    <div>
+      <div class="text-xs uppercase tracking-[0.2em] text-oak">{{ product.category.name }}</div>
+      <h1 class="font-display text-4xl mt-2">{{ product.name }}</h1>
+      <div class="text-2xl mt-4 font-semibold">{{ product.price|money }}</div>
+      <p class="mt-6 text-grey leading-relaxed">{{ product.description or '—' }}</p>
+
+      <dl class="mt-8 grid grid-cols-2 gap-4 text-sm">
+        <div><dt class="text-grey">Material</dt><dd>{{ product.material or '—' }}</dd></div>
+        <div><dt class="text-grey">Dimensions</dt><dd>{{ product.dimensions or '—' }}</dd></div>
+        <div class="col-span-2"><dt class="text-grey">Colours</dt>
+          <dd class="flex flex-wrap gap-2 mt-1">
+            {% for c in product.color_list %}
+              <span class="text-xs bg-beige px-2 py-1 rounded-full">{{ c }}</span>
+            {% else %}—{% endfor %}
+          </dd>
+        </div>
+        <div class="col-span-2">
+          <dt class="text-grey">Stock</dt>
+          <dd>{% if product.in_stock %}{{ product.stock }} available{% else %}<span class="text-red-600">Out of stock</span>{% endif %}</dd>
+        </div>
+      </dl>
+
+      {% if product.in_stock %}
+        <form method="post" action="{{ url_for('cart.add') }}" class="mt-8 flex items-center gap-3">
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <label class="text-sm text-grey">Qty</label>
+          <input name="quantity" type="number" min="1" max="{{ product.stock }}" value="1"
+                 class="w-20 px-3 py-2 border border-beige rounded-lg">
+          <button class="flex-1 bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">Add to cart</button>
+        </form>
+      {% else %}
+        <button disabled class="mt-8 w-full bg-charcoal/30 text-ivory/70 px-6 py-3 rounded-full cursor-not-allowed">Out of stock</button>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if related %}
+  <section class="mt-20">
+    <h2 class="font-display text-2xl mb-6">You may also like</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {% for product in related %}{% include 'partials/product_card.html' %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <h1 class="font-display text-4xl mb-8">Shopping cart</h1>
+
+  {% if not items %}
+    <div class="bg-white border border-beige rounded-2xl p-16 text-center">
+      <p class="text-grey mb-6">Your cart is empty.</p>
+      <a href="{{ url_for('main.shop') }}" class="inline-block bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">Continue shopping</a>
+    </div>
+  {% else %}
+    <div class="grid lg:grid-cols-[1fr_340px] gap-8">
+      <div class="space-y-3">
+        {% for item in items %}
+          <div class="bg-white border border-beige rounded-2xl p-4 flex gap-4 items-center">
+            <a href="{{ url_for('main.product', slug=item.product.slug) }}"
+               class="w-24 h-24 bg-beige rounded-xl overflow-hidden shrink-0">
+              {% if item.product.image %}
+                <img src="{{ item.product.image if item.product.image.startswith('http') else url_for('static', filename=item.product.image) }}"
+                     class="w-full h-full object-cover" alt="">
+              {% endif %}
+            </a>
+            <div class="flex-1">
+              <div class="text-xs uppercase tracking-wider text-grey">{{ item.product.category.name }}</div>
+              <a href="{{ url_for('main.product', slug=item.product.slug) }}" class="font-display text-lg hover:text-oak">{{ item.product.name }}</a>
+              <div class="text-sm text-grey mt-1">{{ item.product.price|money }} each</div>
+            </div>
+            <form method="post" action="{{ url_for('cart.update') }}" class="flex items-center gap-2">
+              <input type="hidden" name="product_id" value="{{ item.product.id }}">
+              <input name="quantity" type="number" min="1" max="{{ item.product.stock }}" value="{{ item.quantity }}"
+                     class="w-16 px-2 py-1 border border-beige rounded-lg text-sm">
+              <button class="text-xs text-grey hover:text-charcoal underline">Update</button>
+            </form>
+            <div class="w-24 text-right">
+              <div class="font-semibold">{{ item.line_total|money }}</div>
+              <form method="post" action="{{ url_for('cart.remove') }}" class="mt-1">
+                <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                <button class="text-xs text-red-600 hover:underline">Remove</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+        <form method="post" action="{{ url_for('cart.clear') }}" data-confirm="Clear the entire cart?">
+          <button class="text-sm text-grey hover:text-red-600 mt-2">Clear cart</button>
+        </form>
+      </div>
+
+      <aside class="bg-white border border-beige rounded-2xl p-6 h-fit">
+        <h2 class="font-display text-xl mb-4">Summary</h2>
+        <div class="flex justify-between text-sm py-2"><span class="text-grey">Subtotal</span><span>{{ total|money }}</span></div>
+        <div class="flex justify-between text-sm py-2"><span class="text-grey">Delivery</span><span>{{ 'Free' if total >= free_delivery_threshold else delivery_fee|money }}</span></div>
+        {% if total < free_delivery_threshold %}
+  {% set remaining = free_delivery_threshold - total %}
+  {% set pct = ((total / free_delivery_threshold) * 100) | round(0, 'floor') | int %}
+  <div class="mt-3 p-3 bg-beige/40 rounded-lg">
+    <div class="flex justify-between text-xs text-grey mb-1.5">
+      <span>Add {{ remaining|money }} for free delivery</span>
+      <span>{{ pct }}%</span>
+    </div>
+    <div class="h-1.5 bg-white rounded-full overflow-hidden">
+      <div class="h-full bg-oak rounded-full transition-all" style="width: {{ pct }}%"></div>
+    </div>
+  </div>
+{% else %}
+  <div class="mt-3 p-3 bg-green-50 rounded-lg text-sm text-green-800 flex items-center gap-2">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+    Free delivery unlocked
+  </div>
+{% endif %}
+<div class="border-t border-beige my-3"></div>
+        <div class="flex justify-between font-semibold text-lg">
+          <span>Total</span>
+          <span>{{ (total + (0 if total >= free_delivery_threshold else delivery_fee))|money }}</span>
+        </div>
+        <a href="{{ url_for('checkout.index') }}" class="mt-6 block text-center bg-charcoal text-ivory py-3 rounded-full hover:bg-oak transition-colors">Checkout</a>
+        <a href="{{ url_for('main.shop') }}" class="mt-3 block text-center text-sm text-grey hover:text-charcoal">Continue shopping</a>
+      </aside>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

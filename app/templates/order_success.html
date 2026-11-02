@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+  <div class="w-16 h-16 mx-auto rounded-full bg-green-100 grid place-items-center">
+    <svg class="w-8 h-8 text-green-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+  </div>
+  <h1 class="font-display text-4xl mt-6">Thank you!</h1>
+  {% if order %}
+    <p class="text-grey mt-3">Your order <span class="font-mono font-semibold text-charcoal">{{ order.reference }}</span> has been placed.</p>
+    <div class="bg-white border border-beige rounded-2xl p-6 mt-8 text-left">
+      <div class="flex justify-between text-sm mb-3"><span class="text-grey">Status</span><span class="capitalize">{{ order.status }}</span></div>
+      <div class="flex justify-between text-sm mb-3"><span class="text-grey">Payment</span><span>{{ 'Cash on delivery' if order.payment_method == 'cod' else 'Card (pending)' }}</span></div>
+      <div class="flex justify-between text-sm mb-3"><span class="text-grey">Deliver to</span><span class="text-right max-w-xs">{{ order.delivery_address }}</span></div>
+      <div class="border-t border-beige my-3"></div>
+      <ul class="space-y-2 text-sm">
+        {% for item in order.items %}
+          <li class="flex justify-between"><span>{{ item.product_name }} × {{ item.quantity }}</span><span>{{ item.line_total|money }}</span></li>
+        {% endfor %}
+      </ul>
+      {% set items_subtotal = order.items|sum(attribute='line_total') %}
+      {% set delivery = order.total - items_subtotal %}
+      <div class="flex justify-between text-sm mt-3 pt-3 border-t border-beige">
+        <span class="text-grey">Items subtotal</span><span>{{ items_subtotal|money }}</span>
+      </div>
+      <div class="flex justify-between text-sm py-1">
+        <span class="text-grey">Delivery</span><span>{{ 'Free' if delivery == 0 else delivery|money }}</span>
+      </div>
+      <div class="flex justify-between font-semibold text-lg mt-2 pt-3 border-t border-beige">
+        <span>Total</span><span>{{ order.total|money }}</span>
+      </div>
+    </div>
+  {% endif %}
+  <a href="{{ url_for('main.shop') }}" class="inline-block mt-8 bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">Continue shopping</a>
+</div>
+{% endblock %}

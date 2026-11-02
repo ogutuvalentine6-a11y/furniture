@@ -1,0 +1,7 @@
+<div data-flash-container class="hidden">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, msg in messages %}
+      <div data-flash-toast data-category="{{ category }}" data-message="{{ msg }}"></div>
+    {% endfor %}
+  {% endwith %}
+</div>

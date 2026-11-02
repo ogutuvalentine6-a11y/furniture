@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid lg:grid-cols-2 gap-10">
+  <div>
+    <h1 class="font-display text-4xl mb-3">Get in touch</h1>
+    <p class="text-grey mb-8">Questions about a piece, delivery, or your order? We'd love to hear from you.</p>
+    <div class="space-y-4 text-sm">
+      <div><div class="text-xs uppercase tracking-wider text-grey">Visit</div>123 Oak Street, Portland, OR 97205</div>
+      <div><div class="text-xs uppercase tracking-wider text-grey">Hours</div>Mon–Sat, 10am–7pm</div>
+      <div><div class="text-xs uppercase tracking-wider text-grey">Email</div>hello@furniturehub.example</div>
+      <div><div class="text-xs uppercase tracking-wider text-grey">Phone</div>+1 (555) 010-2030</div>
+    </div>
+  </div>
+
+  <form method="post" class="bg-white border border-beige rounded-2xl p-6 space-y-4">
+    <div>
+      <label class="block text-sm text-grey mb-1">Name</label>
+      <input name="name" required class="w-full px-3 py-2 border border-beige rounded-lg focus:outline-none focus:border-oak">
+    </div>
+    <div>
+      <label class="block text-sm text-grey mb-1">Email</label>
+      <input name="email" type="email" required class="w-full px-3 py-2 border border-beige rounded-lg focus:outline-none focus:border-oak">
+    </div>
+    <div>
+      <label class="block text-sm text-grey mb-1">Subject</label>
+      <input name="subject" class="w-full px-3 py-2 border border-beige rounded-lg focus:outline-none focus:border-oak">
+    </div>
+    <div>
+      <label class="block text-sm text-grey mb-1">Message</label>
+      <textarea name="message" rows="5" required class="w-full px-3 py-2 border border-beige rounded-lg focus:outline-none focus:border-oak"></textarea>
+    </div>
+    <button class="bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">Send message</button>
+  </form>
+</div>
+{% endblock %}

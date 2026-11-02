@@ -1,0 +1,52 @@
+<header class="bg-ivory/90 backdrop-blur border-b border-beige sticky top-0 z-30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a href="{{ url_for('main.index') }}" class="font-display text-2xl tracking-tight">
+        Furniture<span class="text-oak">Hub</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="{{ url_for('main.index') }}" class="hover:text-oak">Home</a>
+        <a href="{{ url_for('main.shop') }}" class="hover:text-oak">Shop</a>
+        <a href="{{ url_for('main.about') }}" class="hover:text-oak">About</a>
+        <a href="{{ url_for('main.contact') }}" class="hover:text-oak">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <form action="{{ url_for('main.shop') }}" method="get" class="hidden lg:block relative">
+          <input name="q" value="{{ request.args.get('q','') }}"
+                 placeholder="Search furniture…"
+                 class="w-56 pl-9 pr-3 py-2 rounded-full border border-beige bg-white text-sm focus:outline-none focus:border-oak">
+          <svg class="w-4 h-4 absolute left-3 top-2.5 text-grey" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+        </form>
+
+        <button type="button" id="cmdTrigger"
+                class="hidden lg:inline-flex items-center gap-2 text-xs text-grey border border-beige rounded-full px-3 py-1.5 hover:border-oak hover:text-charcoal transition-colors"
+                title="Search (Ctrl+K)">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+          Search
+          <kbd class="text-[9px] border border-beige rounded px-1 py-0.5">⌘K</kbd>
+        </button>
+        <button type="button" id="cartBtn" class="relative p-2 hover:text-oak" aria-label="Open cart">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 4h2l2.5 12h11L21 8H7"/><circle cx="10" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+          {% if cart_count and cart_count > 0 %}
+            <span class="absolute -top-1 -right-1 bg-oak text-white text-[10px] rounded-full w-5 h-5 grid place-items-center font-semibold">{{ cart_count }}</span>
+          {% endif %}
+        </button>
+
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('admin.dashboard') }}" class="hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold border border-oak text-oak px-3 py-1.5 rounded-full hover:bg-oak hover:text-ivory transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>
+            Admin
+          </a>
+          <a href="{{ url_for('auth.logout') }}" class="text-sm text-grey hover:text-charcoal">Logout</a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold border border-oak text-oak px-3 py-1.5 rounded-full hover:bg-oak hover:text-ivory transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Admin
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>

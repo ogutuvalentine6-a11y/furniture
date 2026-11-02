@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Flask / runtime
+instance/
+*.db
+*.sqlite
+*.sqlite3
+.flaskenv
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Backups
+*.bak
+*.bak.*
+*.orig
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Helper scripts
+fix_*.py
+audit*.py
+reset_*.py
+speed_*.py
+update_currency.py
+create_*.py
+verify_*.py
+rebuild_*.py
+fill_all.py

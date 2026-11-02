@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}FurnitureHub — Quality Furniture for Modern Living{% endblock %}</title>
+
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: { ivory:'#F8F6F1', charcoal:'#252525', oak:'#B58B62', beige:'#E9E1D5', grey:'#777777' },
+          fontFamily: { display:['"Playfair Display"','serif'], sans:['Inter','system-ui','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <script src="{{ url_for('static', filename='vendor/tailwind.js') }}" defer></script>
+
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=99">
+</head>
+<body class="bg-ivory text-charcoal font-sans antialiased min-h-screen flex flex-col relative">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PRELOADER — Group 11 (fully self-contained, cannot fail)
+     ═══════════════════════════════════════════════════════════════ -->
+<style>
+  #preloader {
+    position: fixed; inset: 0; z-index: 999999;
+    background: #252525; color: #F8F6F1;
+    display: grid; place-items: center;
+    transition: opacity .3s ease, visibility .3s ease;
+    overflow: hidden; font-family: Inter, system-ui, sans-serif;
+  }
+  #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+  .preloader-wrap {
+    position: relative; z-index: 2; width: 100%; max-width: 880px;
+    padding: 20px; text-align: center;
+  }
+  .preloader-logo {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: #F8F6F1; letter-spacing: -.02em; margin-bottom: 4px;
+  }
+  .preloader-logo span { color: #B58B62; }
+  .preloader-sub {
+    font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
+    color: #B58B62; margin-bottom: 24px;
+  }
+  .preloader-group-label {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+    color: #F8F6F1; margin-bottom: 6px;
+  }
+  .preloader-group-label span { color: #B58B62; }
+  .preloader-group-sub {
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(248,246,241,.45); margin-bottom: 18px;
+  }
+  .preloader-names {
+    display: grid; grid-template-columns: 1fr;
+    gap: 4px 24px; max-width: 640px;
+    margin: 0 auto 18px; padding: 0 8px;
+  }
+  @media (min-width: 640px) {
+    .preloader-names { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 32px; }
+  }
+  .preloader-name {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 10px; font-size: 11px; color: rgba(248,246,241,.75);
+    padding: 3px 0; border-bottom: 1px dashed rgba(181,139,98,.2);
+  }
+  .preloader-name .pname {
+    color: #F8F6F1; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .preloader-name .preg {
+    font-family: ui-monospace, monospace; font-size: 9.5px;
+    color: rgba(181,139,98,.95); flex-shrink: 0;
+  }
+  .preloader-bar-wrap {
+    width: 220px; height: 2px; background: rgba(248,246,241,.12);
+    margin: 0 auto 12px; border-radius: 2px; overflow: hidden; position: relative;
+  }
+  .preloader-bar-wrap::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, #B58B62, transparent);
+    animation: preloadBarSlide 1s ease-in-out infinite;
+  }
+  @keyframes preloadBarSlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .preloader-skip {
+    background: rgba(248,246,241,.1); color: #F8F6F1;
+    border: 1px solid rgba(248,246,241,.2);
+    padding: 8px 20px; border-radius: 999px;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    cursor: pointer; transition: all .2s;
+    margin-top: 8px;
+  }
+  .preloader-skip:hover { background: #B58B62; border-color: #B58B62; color: #252525; }
+</style>
+
+<div id="preloader" role="status" aria-label="Loading FurnitureHub">
+  <div class="preloader-wrap">
+    <div class="preloader-logo">Furniture<span>Hub</span></div>
+    <div class="preloader-sub">Full-Stack E-Commerce</div>
+    <div class="preloader-group-label">Group <span>11</span></div>
+    <div class="preloader-group-sub">PA106 — Group Project — 2025</div>
+    <div class="preloader-names">
+        <div class="preloader-name"><span class="pname">Brian Ouma Ochieng</span><span class="preg">PA106/G/28812/25</span></div>
+        <div class="preloader-name"><span class="pname">Ogutu Valentine Otieno</span><span class="preg">PA106/G/28813/25</span></div>
+        <div class="preloader-name"><span class="pname">Kiprotich Collins</span><span class="preg">PA106/G/28814/25</span></div>
+        <div class="preloader-name"><span class="pname">Elvine Bala Adidwa</span><span class="preg">PA106/G/28815/25</span></div>
+        <div class="preloader-name"><span class="pname">Oyier Edward Hamilton</span><span class="preg">PA106/G/28816/25</span></div>
+        <div class="preloader-name"><span class="pname">Otieno Felix Omondi</span><span class="preg">PA106/G/28817/25</span></div>
+        <div class="preloader-name"><span class="pname">Aldrine Warren</span><span class="preg">PA106/G/28818/25</span></div>
+        <div class="preloader-name"><span class="pname">Ongaki Raynold Oruru</span><span class="preg">PA106/G/28820/25</span></div>
+        <div class="preloader-name"><span class="pname">Onyancha Felix Moinde</span><span class="preg">PA106/G/28821/25</span></div>
+        <div class="preloader-name"><span class="pname">Bikeri Kevin Jaribu</span><span class="preg">PA106/G/28822/25</span></div>
+    </div>
+    <div class="preloader-bar-wrap"></div>
+    <button type="button" class="preloader-skip" onclick="document.getElementById('preloader').classList.add('done')">
+      Skip loading
+    </button>
+  </div>
+</div>
+
+<!-- Self-contained hide — runs immediately, cannot fail -->
+<script>
+(function(){
+  var p = document.getElementById('preloader');
+  if (!p) return;
+  var t0 = Date.now();
+  var MIN = 400;
+  var hide = function(){
+    if (p.classList.contains('done')) return;
+    var wait = Math.max(0, MIN - (Date.now() - t0));
+    setTimeout(function(){
+      p.classList.add('done');
+      setTimeout(function(){ if (p.parentNode) p.parentNode.removeChild(p); }, 400);
+    }, wait);
+  };
+  // Fire as soon as DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hide, { once: true });
+  } else {
+    hide();
+  }
+  // Absolute failsafe — never block more than 2.5s
+  setTimeout(hide, 2500);
+})();
+</script>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+  <div id="scrollProgress"></div>
+  <div id="toastContainer" aria-live="polite"></div>
+
+  {% include 'partials/navbar.html' %}
+  {% include 'partials/flash.html' %}
+
+  <main class="flex-1 relative z-0">{% block content %}{% endblock %}</main>
+
+  {% include 'partials/footer.html' %}
+
+  <div id="adminFab">
+    <a href="{{ url_for('admin.dashboard' if current_user.is_authenticated else 'auth.login') }}"
+       class="admin-fab-btn" title="Open Administration (Ctrl+Shift+A)">
+      <span class="pulse"></span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+      </svg>
+      Admin
+    </a>
+  </div>
+
+  <button id="backToTop" aria-label="Back to top"
+          class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-charcoal text-ivory grid place-items-center shadow-lg opacity-0 pointer-events-none transition-all hover:bg-oak">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <div id="cmdPalette" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmd-box">
+      <input id="cmdInput" class="cmd-input" placeholder="Search pages, products, admin…" autocomplete="off">
+      <div id="cmdList" class="cmd-list"></div>
+      <div class="cmd-footer">
+        <span><kbd>↑↓</kbd> navigate · <kbd>↵</kbd> open · <kbd>esc</kbd> close</span>
+        <span>⌘K / Ctrl+K</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart preview">
+    <div class="drawer-overlay" data-drawer-close></div>
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <div>
+          <div class="text-xs uppercase tracking-wider text-grey">Your cart</div>
+          <div class="font-display text-xl mt-0.5" id="drawerCount">0 items</div>
+        </div>
+        <button data-drawer-close class="p-2 hover:text-oak" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="drawerBody" class="drawer-body"></div>
+      <div class="drawer-footer">
+        <div class="flex justify-between text-sm mb-3">
+          <span class="text-grey">Subtotal</span>
+          <span id="drawerTotal" class="font-semibold">KSh 0</span>
+        </div>
+        <div class="flex gap-2">
+          <a href="{{ url_for('cart.view') }}" class="flex-1 text-center border border-charcoal px-4 py-3 rounded-full hover:bg-charcoal hover:text-ivory transition-colors text-sm">View cart</a>
+          <a href="{{ url_for('checkout.index') }}" class="flex-1 text-center bg-charcoal text-ivory px-4 py-3 rounded-full hover:bg-oak transition-colors text-sm">Checkout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}?v=10"></script>
+  {% block scripts %}{% endblock %}
+<script>/* PRELOADER-FAILSAFE — hides preloader unconditionally after 3s */
+setTimeout(function(){
+  var p = document.getElementById('preloader');
+  if (p) p.classList.add('done');
+}, 3000);
+</script>
+</body>
+</html>
