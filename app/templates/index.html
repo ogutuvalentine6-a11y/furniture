@@ -65,8 +65,8 @@
           <div class="g11-inner">
             <div class="g11-shimmer"></div>
             <div class="relative flex items-start justify-between mb-3">
-              {% if m.photo %}
-                <img src="{{ url_for('static', filename=m.photo) }}" alt="{{ m.name }}"
+              {% if m.photo_url %}
+                <img src="{{ m.photo_url }}" alt="{{ m.name }}"
                      class="g11-avatar" style="padding:0;object-fit:cover;object-position:center top">
               {% else %}
                 <div class="g11-avatar">{{ m.initials }}</div>
@@ -354,7 +354,11 @@
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="founder-card">
       <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-        <div class="founder-avatar shrink-0">BO</div>
+        {% if members and members[0].id == 'brian' and members[0].photo_url %}
+          <img src="{{ members[0].photo_url }}" alt="Brian" class="founder-avatar shrink-0" style="padding:0;object-fit:cover;object-position:center top">
+        {% else %}
+          <div class="founder-avatar shrink-0">BO</div>
+        {% endif %}
         <div class="flex-1 min-w-0">
           <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Meet the Founder</div>
           <h2 class="font-display text-3xl sm:text-4xl mb-3">

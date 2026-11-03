@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Upload Your Photo — Group 11{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-10">
+
+  <a href="{{ url_for('main.team_list') }}" class="inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal mb-6">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to team
+  </a>
+
+  <div class="text-center mb-8 reveal">
+    <div class="inline-block text-xs uppercase tracking-[0.25em] text-oak bg-oak/10 border border-oak/30 px-4 py-1.5 rounded-full mb-4">Group 11</div>
+    <h1 class="font-display text-4xl sm:text-5xl">Upload your photo</h1>
+    <p class="text-grey mt-3">Takes 30 seconds. Add or update your profile photo.</p>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="bg-white border border-beige rounded-2xl p-6 sm:p-8 space-y-5">
+
+    <div>
+      <div class="text-sm font-medium mb-2">1. Who are you?</div>
+      <div class="grid grid-cols-2 gap-2">
+        {% for m in members %}
+          <label class="cursor-pointer">
+            <input type="radio" name="member_id" value="{{ m.id }}" required class="peer sr-only">
+            <div class="border-2 border-beige rounded-xl p-3 text-center peer-checked:border-oak peer-checked:bg-oak/10 transition-all">
+              {% if m.photo_url %}
+                <img src="{{ m.photo_url }}" class="w-12 h-12 rounded-lg object-cover object-top mx-auto mb-2" alt="">
+              {% else %}
+                <div class="w-12 h-12 rounded-lg bg-oak text-charcoal grid place-items-center font-display font-bold mx-auto mb-2">{{ m.initials }}</div>
+              {% endif %}
+              <div class="text-xs font-medium leading-tight">{{ m.name.split()[0] }}</div>
+              <div class="text-[10px] text-grey mt-0.5">{{ m.short_role }}</div>
+            </div>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div>
+      <div class="text-sm font-medium mb-2">2. Choose a photo</div>
+      <label for="photoInput" class="block border-2 border-dashed border-beige rounded-2xl p-8 text-center cursor-pointer hover:border-oak hover:bg-oak/5 transition-all">
+        <svg class="w-12 h-12 text-oak mx-auto mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <div class="text-charcoal font-medium">Tap to open camera or gallery</div>
+        <div class="text-xs text-grey mt-1">Square photo works best · Max 16 MB</div>
+        <input id="photoInput" type="file" name="photo" accept="image/*" capture="environment" required class="sr-only">
+      </label>
+      <div id="fileName" class="text-xs text-grey mt-2 text-center"></div>
+      <div id="previewWrap" class="mt-3 hidden">
+        <img id="preview" class="w-32 h-32 rounded-xl object-cover object-top mx-auto border-2 border-oak" alt="">
+      </div>
+    </div>
+
+    <div>
+      <div class="text-sm font-medium mb-2">3. Team PIN</div>
+      <input type="text" name="pin" required placeholder="Ask Brian for the PIN"
+             class="w-full px-4 py-3 border border-beige rounded-xl text-center tracking-widest uppercase focus:outline-none focus:border-oak">
+      <div class="text-xs text-grey mt-1.5 text-center">Hint: starts with G</div>
+    </div>
+
+    <button type="submit" class="w-full bg-charcoal text-ivory py-4 rounded-xl hover:bg-oak transition-colors font-semibold text-base">
+      Upload my photo →
+    </button>
+
+    <div class="text-xs text-grey text-center pt-3 border-t border-beige">
+      Photos live in the database — they work instantly across the site. On Render free tier they may reset on redeploy; ask Brian to commit them for permanence.
+    </div>
+  </form>
+
+</div>
+
+<script>
+(function(){
+  var input = document.getElementById('photoInput');
+  var fileName = document.getElementById('fileName');
+  var preview = document.getElementById('preview');
+  var wrap = document.getElementById('previewWrap');
+  if (!input) return;
+  input.addEventListener('change', function() {
+    var f = input.files && input.files[0];
+    if (!f) { fileName.textContent = ''; wrap.classList.add('hidden'); return; }
+    fileName.textContent = '✓ ' + f.name + ' · ' + (f.size/(1024*1024)).toFixed(1) + ' MB';
+    fileName.style.color = '#059669';
+    var reader = new FileReader();
+    reader.onload = function(e){ preview.src = e.target.result; wrap.classList.remove('hidden'); };
+    reader.readAsDataURL(f);
+  });
+})();
+</script>
+{% endblock %}

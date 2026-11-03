@@ -1,6 +1,8 @@
 from flask import (Blueprint, render_template, request, flash, redirect,
                    url_for, jsonify)
 from sqlalchemy import or_
+from io import BytesIO
+from datetime import datetime
 from .extensions import db
 from .models import (Product, Category, ContactMessage,
                      Customer, Order, NewsletterSubscriber)
@@ -112,6 +114,64 @@ def team_member(member_id):
     return render_template("team_member.html", member=member,
                            prev_member=prev_m, next_member=next_m)
 
+
+
+
+@main_bp.route("/team/upload", methods=["GET", "POST"])
+def team_upload_public():
+    """Public photo upload for team members. PIN-protected."""
+    from .models import TeamPhoto
+    from .extensions import db
+    from flask import current_app
+    from . import team as team_mod
+
+    pin_ok = current_app.config.get("TEAM_UPLOAD_PIN", "GROUP11")
+    members = team_mod.get_all()
+
+    if request.method == "POST":
+        entered_pin = (request.form.get("pin") or "").strip()
+        member_id = (request.form.get("member_id") or "").strip()
+        file = request.files.get("photo")
+
+        if entered_pin != pin_ok:
+            flash("Wrong PIN. Ask Brian for the team PIN.", "danger")
+        elif not member_id or not any(m["id"] == member_id for m in members):
+            flash("Please select who you are.", "danger")
+        elif not file or not file.filename:
+            flash("Please choose a photo.", "danger")
+        else:
+            ext = file.filename.rsplit(".", 1)[-1].lower()
+            if ext not in ("jpg", "jpeg", "png", "webp", "gif"):
+                flash("Only JPG, PNG, WEBP or GIF allowed.", "danger")
+            else:
+                data = file.read()
+                if len(data) > 16 * 1024 * 1024:
+                    flash("Photo is too large (max 16 MB).", "danger")
+                else:
+                    mime = f"image/{'jpeg' if ext in ('jpg', 'jpeg') else ext}"
+                    existing = TeamPhoto.query.filter_by(member_id=member_id).first()
+                    if existing:
+                        existing.data = data
+                        existing.mime = mime
+                        existing.updated_at = datetime.utcnow()
+                    else:
+                        db.session.add(TeamPhoto(member_id=member_id, data=data, mime=mime))
+                    db.session.commit()
+                    flash(f"✅ Photo uploaded for {member_id.title()}! Thanks.", "success")
+                    return redirect(url_for("main.team_upload_public"))
+
+    return render_template("team_upload.html", members=members)
+
+
+@main_bp.route("/team/photo/<member_id>")
+def team_photo(member_id):
+    """Serve a team member photo from the database."""
+    from .models import TeamPhoto
+    from flask import send_file, abort
+    photo = TeamPhoto.query.filter_by(member_id=member_id).first()
+    if not photo:
+        abort(404)
+    return send_file(BytesIO(photo.data), mimetype=photo.mime, max_age=3600)
 
 @main_bp.route("/newsletter/subscribe", methods=["POST"])
 def newsletter_subscribe():

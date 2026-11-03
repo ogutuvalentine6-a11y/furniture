@@ -16,8 +16,8 @@
       <a href="{{ url_for('main.team_member', member_id=m.id) }}"
          class="group block bg-white border border-beige rounded-2xl overflow-hidden hover:border-charcoal transition-all hover:-translate-y-1 hover:shadow-xl">
         <div class="aspect-square bg-gradient-to-br from-oak/30 to-beige overflow-hidden">
-          {% if m.photo %}
-            <img src="{{ url_for('static', filename=m.photo) }}" alt="{{ m.name }}"
+          {% if m.photo_url %}
+            <img src="{{ m.photo_url }}" alt="{{ m.name }}"
                  class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
           {% else %}
             <div class="w-full h-full grid place-items-center">
@@ -36,7 +36,10 @@
   </div>
 
   <div class="text-center mt-12">
-    <a href="{{ url_for('main.index') }}" class="inline-block bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">← Back to store</a>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="{{ url_for('main.index') }}" class="inline-block bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">← Back to store</a>
+      <a href="{{ url_for('main.team_upload_public') }}" class="inline-block border border-oak text-oak px-6 py-3 rounded-full hover:bg-oak hover:text-ivory transition-colors">📷 Upload your photo</a>
+    </div>
   </div>
 </div>
 {% endblock %}

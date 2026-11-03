@@ -101,6 +101,16 @@ class NewsletterSubscriber(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+class TeamPhoto(db.Model):
+    """Team member photo uploaded from phones (survives between deploys)."""
+    __tablename__ = "team_photos"
+    id = db.Column(db.Integer, primary_key=True)
+    member_id = db.Column(db.String(40), unique=True, nullable=False, index=True)
+    data = db.Column(db.LargeBinary, nullable=False)
+    mime = db.Column(db.String(40), default="image/jpeg")
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
 class AdminUser(UserMixin, db.Model):
     __tablename__ = "admin_users"
     id = db.Column(db.Integer, primary_key=True)

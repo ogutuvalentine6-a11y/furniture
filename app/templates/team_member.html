@@ -13,8 +13,8 @@
     {# Photo #}
     <div class="relative">
       <div class="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-oak/40 to-beige shadow-xl">
-        {% if member.photo %}
-          <img src="{{ url_for('static', filename=member.photo) }}" alt="{{ member.name }}"
+        {% if member.photo_url %}
+          <img src="{{ member.photo_url }}" alt="{{ member.name }}"
                class="w-full h-full object-cover object-center">
         {% else %}
           <div class="w-full h-full grid place-items-center">

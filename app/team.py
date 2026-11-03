@@ -87,7 +87,27 @@ def get_photo(member_id):
 
 
 def with_photos(members):
-    return [{**m, "photo": get_photo(m["id"])} for m in members]
+    """Enrich members with photo URL (DB takes priority over filesystem)."""
+    from .models import TeamPhoto
+    from flask import url_for
+    result = []
+    for m in members:
+        fs_path = get_photo(m["id"])
+        has_db = TeamPhoto.query.filter_by(member_id=m["id"]).first() is not None
+        if has_db:
+            try:
+                photo_url = url_for("main.team_photo", member_id=m["id"])
+            except RuntimeError:
+                photo_url = f"/team/photo/{m['id']}"
+        elif fs_path:
+            try:
+                photo_url = url_for("static", filename=fs_path)
+            except RuntimeError:
+                photo_url = f"/static/{fs_path}"
+        else:
+            photo_url = None
+        result.append({**m, "photo": fs_path, "photo_db": has_db, "photo_url": photo_url})
+    return result
 
 
 def get_all():
@@ -97,7 +117,7 @@ def get_all():
 def get_one(member_id):
     for m in TEAM:
         if m["id"] == member_id:
-            return {**m, "photo": get_photo(member_id)}
+            return with_photos([m])[0]
     return None
 
 
