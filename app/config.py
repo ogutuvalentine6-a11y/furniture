@@ -25,3 +25,5 @@ class Config:
     # Delivery
     FREE_DELIVERY_THRESHOLD = 65000   # KSh
     DELIVERY_FEE = 3500               # KSh
+    TEAM_UPLOAD_PIN = os.environ.get("TEAM_UPLOAD_PIN", "GROUP11")
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
