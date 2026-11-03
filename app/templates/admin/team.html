@@ -1,0 +1,48 @@
+{% extends 'admin/_base.html' %}
+{% block admin_content %}
+<h1 class="font-display text-3xl mb-2">Team Photos</h1>
+<p class="text-sm text-grey mb-6">Upload a square photo for each Group 11 member. Recommended: 400×400 px, JPG or PNG. Files saved to <code class="bg-beige px-1.5 py-0.5 rounded text-xs">app/static/images/team/</code>.</p>
+
+<div class="grid md:grid-cols-2 gap-4">
+  {% for m in members %}
+    <div class="bg-white border border-beige rounded-2xl p-5 flex gap-4">
+      <div class="shrink-0">
+        {% if m.photo %}
+          <img src="{{ url_for('static', filename=m.photo) }}" alt="{{ m.name }}"
+               class="w-24 h-24 rounded-xl object-cover border border-beige">
+        {% else %}
+          <div class="w-24 h-24 rounded-xl bg-oak text-charcoal grid place-items-center font-display text-2xl font-bold">{{ m.initials }}</div>
+        {% endif %}
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="font-display text-lg leading-tight">{{ m.name }}</div>
+        <div class="text-xs text-grey font-mono mt-0.5">{{ m.reg }}</div>
+        <div class="text-xs text-grey mt-1">{{ m.short_role }}</div>
+
+        <form method="post" action="{{ url_for('admin.team_upload') }}" enctype="multipart/form-data" class="mt-3 space-y-2">
+          <input type="hidden" name="member_id" value="{{ m.id }}">
+          <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" required
+                 class="text-xs w-full file:mr-2 file:px-3 file:py-1.5 file:rounded-full file:border-0 file:bg-charcoal file:text-ivory file:text-xs file:cursor-pointer">
+          <button type="submit" class="bg-charcoal text-ivory px-4 py-1.5 rounded-full text-xs hover:bg-oak transition-colors">Upload</button>
+        </form>
+
+        {% if m.photo %}
+          <form method="post" action="{{ url_for('admin.team_delete_photo') }}" class="mt-2"
+                data-confirm="Remove {{ m.name }}'s photo?">
+            <input type="hidden" name="member_id" value="{{ m.id }}">
+            <button type="submit" class="text-xs text-red-600 hover:underline">Remove photo</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="mt-8 p-4 bg-beige/50 border border-beige rounded-xl text-xs text-grey">
+  <strong class="text-charcoal">Note on Render deployment:</strong>
+  Files uploaded here work instantly, but Render's free tier resets on each deploy. To persist photos permanently, upload locally, then commit the folder:
+  <pre class="mt-2 bg-white rounded p-2 overflow-x-auto text-[11px]">git add app/static/images/team/
+git commit -m "add team photos"
+git push</pre>
+</div>
+{% endblock %}

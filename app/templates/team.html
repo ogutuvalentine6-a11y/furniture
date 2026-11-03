@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}The Team — FurnitureHub{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+  <div class="text-center mb-12 reveal">
+    <div class="inline-block text-xs uppercase tracking-[0.25em] text-oak bg-oak/10 border border-oak/30 px-4 py-1.5 rounded-full mb-4">
+      The Team
+    </div>
+    <h1 class="font-display text-5xl lg:text-6xl">Group <span class="text-oak">11</span></h1>
+    <p class="text-grey mt-4 max-w-2xl mx-auto">Five senior engineers who built FurnitureHub end-to-end.</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for m in members %}
+      <a href="{{ url_for('main.team_member', member_id=m.id) }}"
+         class="group block bg-white border border-beige rounded-2xl overflow-hidden hover:border-charcoal transition-all hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-square bg-gradient-to-br from-oak/30 to-beige overflow-hidden">
+          {% if m.photo %}
+            <img src="{{ url_for('static', filename=m.photo) }}" alt="{{ m.name }}"
+                 class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
+          {% else %}
+            <div class="w-full h-full grid place-items-center">
+              <div class="w-24 h-24 rounded-2xl bg-oak text-charcoal grid place-items-center font-display text-3xl font-bold">{{ m.initials }}</div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="p-5">
+          {% if m.is_founder %}<div class="text-[10px] uppercase tracking-widest text-oak font-bold mb-1">★ Founder</div>{% endif %}
+          <div class="font-display text-xl text-charcoal group-hover:text-oak transition-colors">{{ m.name }}</div>
+          <div class="text-sm text-grey mt-1">{{ m.role }}</div>
+          <div class="text-[11px] text-grey/60 font-mono mt-2">{{ m.reg }}</div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="text-center mt-12">
+    <a href="{{ url_for('main.index') }}" class="inline-block bg-charcoal text-ivory px-6 py-3 rounded-full hover:bg-oak transition-colors">← Back to store</a>
+  </div>
+</div>
+{% endblock %}

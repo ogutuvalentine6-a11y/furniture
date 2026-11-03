@@ -4,6 +4,9 @@ from flask_login import login_required
 from .extensions import db
 from .models import Product, Category, Order, Customer, ContactMessage
 from .utils import slugify
+from . import team as team_mod
+from pathlib import Path
+from flask import current_app
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 VALID_STATUSES = ("pending", "paid", "shipped", "delivered", "cancelled")
@@ -141,3 +144,47 @@ def _product_form_data():
         "is_new": bool(request.form.get("is_new")),
         "category_id": request.form.get("category_id", type=int),
     }
+
+@admin_bp.route("/team")
+@login_required
+def team_admin():
+    return render_template("admin/team.html", members=team_mod.get_all())
+
+
+@admin_bp.route("/team/upload", methods=["POST"])
+@login_required
+def team_upload():
+    member_id = request.form.get("member_id", "").strip()
+    file = request.files.get("photo")
+    if not member_id or not file or not file.filename:
+        flash("No file selected.", "danger")
+        return redirect(url_for("admin.team_admin"))
+    ext = file.filename.rsplit(".", 1)[-1].lower()
+    if ext not in ("jpg", "jpeg", "png", "webp"):
+        flash("Only jpg, jpeg, png, webp allowed.", "danger")
+        return redirect(url_for("admin.team_admin"))
+    photo_dir = Path(current_app.static_folder) / "images" / "team"
+    photo_dir.mkdir(parents=True, exist_ok=True)
+    for old_ext in ("jpg", "jpeg", "png", "webp"):
+        old = photo_dir / f"{member_id}.{old_ext}"
+        if old.exists():
+            old.unlink()
+    file.save(photo_dir / f"{member_id}.{ext}")
+    flash(f"Photo uploaded for {member_id}.", "success")
+    return redirect(url_for("admin.team_admin"))
+
+
+@admin_bp.route("/team/delete", methods=["POST"])
+@login_required
+def team_delete_photo():
+    member_id = request.form.get("member_id", "").strip()
+    photo_dir = Path(current_app.static_folder) / "images" / "team"
+    removed = False
+    for ext in ("jpg", "jpeg", "png", "webp"):
+        f = photo_dir / f"{member_id}.{ext}"
+        if f.exists():
+            f.unlink()
+            removed = True
+    flash("Photo removed." if removed else "No photo to remove.", "info")
+    return redirect(url_for("admin.team_admin"))
+

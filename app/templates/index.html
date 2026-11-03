@@ -1,114 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}FurnitureHub · Group 11 — Full-Stack Furniture Commerce
-<!-- ══ Group 11 Profile Modal ══ -->
-<div id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileName">
-  <div class="profile-backdrop" onclick="closeProfile()"></div>
-  <div class="profile-panel">
-    <button class="profile-close" onclick="closeProfile()" aria-label="Close">&times;</button>
-    <div id="profileContent"></div>
-  </div>
-</div>
 
-<!-- ══ Group 11 Profile Data ══ -->
-<script type="application/json" id="g11Profiles">
-{
-  "brian": {
-    "name": "Brian Ouma Ochieng",
-    "reg": "PA106/G/28812/25",
-    "role": "Founder & Lead Full-Stack Engineer",
-    "initials": "BO",
-    "bio": "As founder and lead engineer, Brian architected FurnitureHub from the ground up \u2014 from the Flask application factory to the deployment pipeline on Render. He specializes in full-stack systems, cloud deployment and technical leadership. His approach pairs rigorous engineering with a designer's eye for detail, and he is passionate about mentoring the next generation of developers.",
-    "contribution": "System architecture, all six Flask blueprints, authentication layer, deployment pipeline (Render + GitHub Actions), technical coordination, and the Group 11 vision.",
-    "project_vision": "Brian's vision for FurnitureHub was simple: build a commerce platform that feels as considered as the furniture it sells. Every design decision, every route, every line of code \u2014 from the ivory-and-charcoal palette to the FH-XXXXXXXX order references \u2014 was shaped by his commitment to quality.",
-    "skills": [
-      "Python",
-      "Flask",
-      "SQLAlchemy",
-      "Docker",
-      "GitHub Actions",
-      "Render",
-      "Linux",
-      "Technical Leadership"
-    ],
-    "contact": {
-      "phone": "0707810455",
-      "email": "braianouma3@gmail.com"
-    },
-    "is_founder": true
-  },
-  "ogutu": {
-    "name": "Ogutu Valentine Otieno",
-    "reg": "PA106/G/28813/25",
-    "role": "Senior Backend Engineer",
-    "initials": "OV",
-    "bio": "Valentine specializes in backend architecture and API design. He designed the routing layer that powers every product, order and authentication flow on FurnitureHub. His focus is on reliability \u2014 every endpoint is validated, every session is secure, and every error is handled gracefully.",
-    "contribution": "All API route handlers, session management, customer authentication, backend validation, order processing logic, security hardening.",
-    "project_vision": "For Valentine, the backend is the invisible scaffold of great UX. Customers should never have to think about how it works \u2014 it should just work. His routing design embodies that philosophy.",
-    "skills": [
-      "Python",
-      "REST APIs",
-      "Flask-Login",
-      "Session Management",
-      "Security",
-      "SQLAlchemy"
-    ],
-    "contact": {}
-  },
-  "kiprotich": {
-    "name": "Kiprotich Collins",
-    "reg": "PA106/G/28814/25",
-    "role": "Database Architect & DevOps",
-    "initials": "KC",
-    "bio": "Collins designed the seven-table database schema that underpins FurnitureHub. He is passionate about data integrity, normalized design and query performance. He also owns the seed data pipeline that makes demo deployments reproducible across machines and environments.",
-    "contribution": "Database schema, all SQLAlchemy ORM models, seed scripts, query optimization, data relationships, integrity constraints.",
-    "project_vision": "Collins believes that a well-designed schema is the single highest-leverage decision in any backend project. Clean data models make everything else \u2014 routes, filters, admin tools \u2014 exponentially easier.",
-    "skills": [
-      "SQL",
-      "SQLAlchemy",
-      "Database Design",
-      "Indexing",
-      "Data Modeling",
-      "DevOps"
-    ],
-    "contact": {}
-  },
-  "elvine": {
-    "name": "Elvine Bala Adidwa",
-    "reg": "PA106/G/28815/25",
-    "role": "Senior UI/UX Engineer",
-    "initials": "EB",
-    "bio": "Elvine leads design at FurnitureHub. She created the premium visual language \u2014 the ivory-and-charcoal palette, the Playfair type pairing, the oak gradient accents, the motion system. Everything you see was shaped by her eye. She designs for clarity and delight in equal measure.",
-    "contribution": "Design system, color palette, typography pairing, micro-animations, accessibility, all public-facing templates, responsive layout strategy.",
-    "project_vision": "Elvine's north star: the site should feel like walking into a beautifully curated furniture showroom \u2014 calm, warm, and inviting. Every pixel earns its place.",
-    "skills": [
-      "UI Design",
-      "UX Research",
-      "Tailwind CSS",
-      "Design Systems",
-      "Accessibility",
-      "Figma"
-    ],
-    "contact": {}
-  },
-  "oyier": {
-    "name": "Oyier Edward Hamilton",
-    "reg": "PA106/G/28816/25",
-    "role": "Frontend Engineer",
-    "initials": "OE",
-    "bio": "Edward owns the interactive layer. The command palette (Ctrl+K), the slide-in cart drawer, the toast notifications, the animated counters, the scroll reveals \u2014 every micro-interaction on the site was built by his hand. He is meticulous about performance and smooth motion.",
-    "contribution": "JavaScript interactions, cart drawer, command palette, toast system, scroll animations, floating admin FAB, product card tilt effects.",
-    "project_vision": "Edward believes interactions should be effortless. Users shouldn't notice the JavaScript \u2014 they should just feel that everything responds instantly. Less code, smoother experience.",
-    "skills": [
-      "JavaScript",
-      "DOM APIs",
-      "CSS Animations",
-      "Performance",
-      "Responsive Design"
-    ],
-    "contact": {}
-  }
-}
-</script>
 
 {% endblock %}
 {% block content %}
@@ -133,7 +25,7 @@
     <div class="flex justify-center mb-8">
       <div class="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.03] border border-oak/30 rounded-full backdrop-blur-sm">
         <span class="g11-live-dot"></span>
-        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-oak font-medium">PA106 · Group Project · 2025</span>
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-oak font-medium">Software Engineering · Class of 2025</span>
       </div>
     </div>
 
@@ -165,30 +57,26 @@
     </div>
 
     <!-- Team grid -->
-    {% set members = [
-  ("Brian Ouma Ochieng",     "PA106/G/28812/25", "Founder & Lead", "brian"),
-  ("Ogutu Valentine Otieno", "PA106/G/28813/25", "Backend",        "ogutu"),
-  ("Kiprotich Collins",      "PA106/G/28814/25", "Database",       "kiprotich"),
-  ("Elvine Bala Adidwa",     "PA106/G/28815/25", "UI/UX",          "elvine"),
-  ("Oyier Edward Hamilton",  "PA106/G/28816/25", "Frontend",       "oyier"),
-] %}
-
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 max-w-6xl mx-auto">
-      {% for name, reg, role, member_id in members %}
-        {% set parts = name.strip().split() %}
-        {% set initials = (parts[0][0] if parts|length > 0 else '') ~ (parts[-1][0] if parts|length > 1 else '') %}
-        <div class="g11-card">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+      {% for m in members %}
+        <a href="{{ url_for('main.team_member', member_id=m.id) }}"
+           class="g11-card block" aria-label="View profile of {{ m.name }}">
           <div class="g11-card-glow"></div>
           <div class="g11-inner">
             <div class="g11-shimmer"></div>
             <div class="relative flex items-start justify-between mb-3">
-              <div class="g11-avatar">{{ initials|upper }}</div>
-              <span class="g11-role">{{ role }}</span>
+              {% if m.photo %}
+                <img src="{{ url_for('static', filename=m.photo) }}" alt="{{ m.name }}"
+                     class="g11-avatar" style="padding:0;object-fit:cover;object-position:center top">
+              {% else %}
+                <div class="g11-avatar">{{ m.initials }}</div>
+              {% endif %}
+              <span class="g11-role">{{ m.short_role }}</span>
             </div>
-            <div class="g11-name g11-name-advanced">{{ name }}</div>
-            <div class="g11-reg">{{ reg }}</div>
+            <div class="g11-name g11-name-advanced">{{ m.name }}</div>
+            <div class="g11-reg">{{ m.reg }}</div>
           </div>
-        </div>
+        </a>
       {% endfor %}
     </div>
 
@@ -470,7 +358,7 @@
         <div class="flex-1 min-w-0">
           <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Meet the Founder</div>
           <h2 class="font-display text-3xl sm:text-4xl mb-3">
-            <span class="g11-name-advanced">Brian Ouma Ochieng</span>
+            <a href="{{ url_for('main.team_member', member_id='brian') }}" class="g11-name-advanced hover:underline">Brian Ouma Ochieng</a>
           </h2>
           <p class="text-charcoal/70 leading-relaxed max-w-2xl">
             FurnitureHub was envisioned, designed and built by Brian Ouma Ochieng &mdash; a developer with a passion for clean code, honest design, and furniture that feels like home. His vision brought Group 11 together to deliver a full-stack commerce platform that prioritizes both user experience and engineering quality.
@@ -480,6 +368,7 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               0707810455
             </a>
+            <a href="{{ url_for('main.team_member', member_id='brian') }}" class="inline-flex items-center gap-2 bg-charcoal text-ivory px-4 py-2 rounded-full hover:bg-oak transition-colors font-medium">View full profile →</a>
             <a href="mailto:braianouma3@gmail.com" class="inline-flex items-center gap-2 border border-oak/40 text-charcoal px-4 py-2 rounded-full hover:border-oak hover:bg-oak/10 transition-colors font-medium">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
               braianouma3@gmail.com

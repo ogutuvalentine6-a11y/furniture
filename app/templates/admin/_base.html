@@ -5,6 +5,7 @@
     <a href="{{ url_for('admin.dashboard') }}" class="block px-3 py-2 rounded-lg side-link {{ 'active' if request.endpoint == 'admin.dashboard' }}">Dashboard</a>
     <a href="{{ url_for('admin.products') }}" class="block px-3 py-2 rounded-lg side-link {{ 'active' if request.endpoint and request.endpoint.startswith('admin.product') }}">Products</a>
     <a href="{{ url_for('admin.orders') }}" class="block px-3 py-2 rounded-lg side-link {{ 'active' if request.endpoint and request.endpoint.startswith('admin.order') }}">Orders</a>
+    <a href="{{ url_for('admin.team_admin') }}" class="block px-3 py-2 rounded-lg side-link {{ 'active' if request.endpoint == 'admin.team_admin' }}">Team</a>
     <a href="{{ url_for('admin.customers') }}" class="block px-3 py-2 rounded-lg side-link {{ 'active' if request.endpoint == 'admin.customers' }}">Customers</a>
     <a href="{{ url_for('main.index') }}" class="block px-3 py-2 rounded-lg side-link">← View site</a>
     <a href="{{ url_for('auth.logout') }}" class="block px-3 py-2 rounded-lg side-link text-red-600">Logout</a>

@@ -5,6 +5,7 @@ from .extensions import db
 from .models import (Product, Category, ContactMessage,
                      Customer, Order, NewsletterSubscriber)
 from .utils import is_valid_email
+from . import team as team_mod
 
 main_bp = Blueprint("main", __name__)
 
@@ -25,7 +26,7 @@ def index():
     return render_template("index.html",
                            featured=featured, bestsellers=bestsellers,
                            new_arrivals=new_arrivals, categories=categories,
-                           stats=stats)
+                           stats=stats, members=team_mod.get_all())
 
 
 @main_bp.route("/shop")
@@ -94,6 +95,22 @@ def contact():
             flash("Thanks — we'll be in touch shortly.", "success")
             return redirect(url_for("main.contact"))
     return render_template("contact.html")
+
+
+@main_bp.route("/team")
+def team_list():
+    return render_template("team.html", members=team_mod.get_all())
+
+
+@main_bp.route("/team/<member_id>")
+def team_member(member_id):
+    member = team_mod.get_one(member_id)
+    if not member:
+        from flask import abort
+        abort(404)
+    prev_m, next_m = team_mod.get_neighbors(member_id)
+    return render_template("team_member.html", member=member,
+                           prev_member=prev_m, next_member=next_m)
 
 
 @main_bp.route("/newsletter/subscribe", methods=["POST"])
