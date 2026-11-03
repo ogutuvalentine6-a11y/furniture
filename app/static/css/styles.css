@@ -619,3 +619,78 @@ html { scroll-behavior: smooth; }
 
 /* Card hover: keep the gold glow, light bg means glow is more visible */
 .g11-card:hover .g11-card-glow { opacity: 0.7; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   ADVANCED GROUP 11 — gradient names, furniture hero, founder
+   ══════════════════════════════════════════════════════════════ */
+@keyframes g11-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+.g11-name-advanced {
+  background: linear-gradient(120deg, #f4d58d 0%, #B58B62 25%, #f4d58d 50%, #B58B62 75%, #f4d58d 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: g11-gradient-shift 6s ease-in-out infinite;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.g11-hero-furniture-bg {
+  position: relative;
+  isolation: isolate;
+}
+.g11-hero-furniture-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=2000&q=85");
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  filter: brightness(0.5);
+}
+.g11-hero-furniture-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(37,37,37,0.85), rgba(37,37,37,0.92), rgba(37,37,37,0.88));
+  z-index: -1;
+}
+
+.founder-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  border: 1px solid rgba(181,139,98,0.3);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.founder-card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -15%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(181,139,98,0.25), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.founder-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, #B58B62, #f4d58d);
+  display: grid;
+  place-items: center;
+  font-family: "Playfair Display", serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #252525;
+  box-shadow: 0 8px 24px -6px rgba(181,139,98,0.5);
+}

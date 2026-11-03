@@ -5,7 +5,7 @@
 {# ═══════════════════════════════════════════════════════════════
    GROUP 11 — CINEMATIC HERO (FRONT OF PAGE)
    ═══════════════════════════════════════════════════════════════ #}
-<section class="relative bg-charcoal text-ivory overflow-hidden">
+<section class="relative g11-hero-furniture-bg text-ivory overflow-hidden">
 
   <!-- Ambient background -->
   <div class="absolute inset-0 pointer-events-none">
@@ -55,17 +55,12 @@
 
     <!-- Team grid -->
     {% set members = [
-      ("Brian Ouma Ochieng",     "PA106/G/28812/25", "Lead Dev"),
-      ("Ogutu Valentine Otieno", "PA106/G/28813/25", "Backend"),
-      ("Kiprotich Collins",      "PA106/G/28814/25", "Database"),
-      ("Elvine Bala Adidwa",     "PA106/G/28815/25", "UI/UX"),
-      ("Oyier Edward Hamilton",  "PA106/G/28816/25", "Frontend"),
-      ("Otieno Felix Omondi",    "PA106/G/28817/25", "QA"),
-      ("Aldrine Warren",         "PA106/G/28818/25", "DevOps"),
-      ("Ongaki Raynold Oruru",   "PA106/G/28820/25", "Frontend"),
-      ("Onyancha Felix Moinde",  "PA106/G/28821/25", "Backend"),
-      ("Bikeri Kevin Jaribu",    "PA106/G/28822/25", "Design"),
-    ] %}
+  ("Brian Ouma Ochieng",     "PA106/G/28812/25", "Founder & Lead"),
+  ("Ogutu Valentine Otieno", "PA106/G/28813/25", "Backend"),
+  ("Kiprotich Collins",      "PA106/G/28814/25", "Database"),
+  ("Elvine Bala Adidwa",     "PA106/G/28815/25", "UI/UX"),
+  ("Oyier Edward Hamilton",  "PA106/G/28816/25", "Frontend"),
+] %}
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 max-w-6xl mx-auto">
       {% for name, reg, role in members %}
@@ -79,7 +74,7 @@
               <div class="g11-avatar">{{ initials|upper }}</div>
               <span class="g11-role">{{ role }}</span>
             </div>
-            <div class="g11-name">{{ name }}</div>
+            <div class="g11-name g11-name-advanced">{{ name }}</div>
             <div class="g11-reg">{{ reg }}</div>
           </div>
         </div>
@@ -350,6 +345,37 @@
           </div>
         </div>
       {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+{# ══ Meet the Founder ══ #}
+<section class="bg-charcoal text-ivory py-16 reveal">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="founder-card">
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+        <div class="founder-avatar shrink-0">BO</div>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs uppercase tracking-[0.25em] text-oak mb-2">Meet the Founder</div>
+          <h2 class="font-display text-3xl sm:text-4xl mb-3">
+            <span class="g11-name-advanced">Brian Ouma Ochieng</span>
+          </h2>
+          <p class="text-ivory/70 leading-relaxed max-w-2xl">
+            FurnitureHub was envisioned, designed and built by Brian Ouma Ochieng &mdash; a developer with a passion for clean code, honest design, and furniture that feels like home. His vision brought Group 11 together to deliver a full-stack commerce platform that prioritizes both user experience and engineering quality.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3 text-sm">
+            <a href="tel:0707810455" class="inline-flex items-center gap-2 bg-oak text-charcoal px-4 py-2 rounded-full hover:bg-ivory transition-colors font-medium">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              0707810455
+            </a>
+            <a href="mailto:braianouma3@gmail.com" class="inline-flex items-center gap-2 border border-oak/40 text-ivory px-4 py-2 rounded-full hover:border-oak hover:bg-oak/10 transition-colors font-medium">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+              braianouma3@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
