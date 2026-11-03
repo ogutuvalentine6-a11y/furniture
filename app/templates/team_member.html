@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}{{ member.name }} — FurnitureHub Team{% endblock %}
+{% block title %}{{ member.name }} — Group 11{% endblock %}
 {% block content %}
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
-  <a href="{{ url_for('main.index') }}" class="inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal mb-8">
+  <a href="{{ url_for('main.index') }}" class="inline-flex items-center gap-2 text-sm text-grey hover:text-charcoal mb-10">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back to home
   </a>
 
-  <div class="grid md:grid-cols-[280px_1fr] gap-8 lg:gap-12 items-start">
-
-    {# Photo #}
-    <div class="relative">
+  <div class="text-center">
+    <div class="mx-auto mb-8" style="max-width:280px;">
       <div class="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-oak/40 to-beige shadow-xl">
         {% if member.photo_url %}
           <img src="{{ member.photo_url }}" alt="{{ member.name }}"
@@ -22,79 +20,25 @@
           </div>
         {% endif %}
       </div>
-      {% if member.is_founder %}
-        <div class="absolute -top-3 -left-3 bg-charcoal text-oak text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">★ Founder</div>
-      {% endif %}
     </div>
 
-    {# Details #}
-    <div>
-      <div class="inline-block text-xs uppercase tracking-[0.25em] text-oak bg-oak/10 border border-oak/30 px-3 py-1.5 rounded-full mb-4">{{ member.role }}</div>
-
-      <h1 class="font-display text-4xl lg:text-5xl leading-tight" style="color:#111">{{ member.name }}</h1>
-      <div class="text-sm text-grey/70 font-mono mt-2">{{ member.reg }}</div>
-
-      <p class="text-charcoal/80 leading-relaxed mt-6">{{ member.bio }}</p>
-
-      <div class="mt-8 space-y-6">
-        <div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-oak font-bold mb-2">Contribution to FurnitureHub</div>
-          <p class="text-sm text-charcoal/75 leading-relaxed">{{ member.contribution }}</p>
-        </div>
-
-        <div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-oak font-bold mb-2">Project Vision</div>
-          <p class="text-sm text-charcoal/75 leading-relaxed italic">&ldquo;{{ member.project_vision }}&rdquo;</p>
-        </div>
-
-        <div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-oak font-bold mb-3">Skills</div>
-          <div class="flex flex-wrap gap-2">
-            {% for s in member.skills %}
-              <span class="text-xs bg-white border border-beige rounded-full px-3 py-1.5 text-charcoal font-medium">{{ s }}</span>
-            {% endfor %}
-          </div>
-        </div>
-
-        {% if member.contact.phone or member.contact.email %}
-          <div>
-            <div class="text-[10px] uppercase tracking-[0.2em] text-oak font-bold mb-3">Contact</div>
-            <div class="flex flex-wrap gap-2">
-              {% if member.contact.phone %}
-                <a href="tel:{{ member.contact.phone }}" class="inline-flex items-center gap-2 bg-charcoal text-ivory px-4 py-2.5 rounded-full hover:bg-oak transition-colors text-sm font-medium">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  {{ member.contact.phone }}
-                </a>
-              {% endif %}
-              {% if member.contact.email %}
-                <a href="mailto:{{ member.contact.email }}" class="inline-flex items-center gap-2 border border-oak/40 text-charcoal px-4 py-2.5 rounded-full hover:border-oak hover:bg-oak/10 transition-colors text-sm font-medium">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
-                  {{ member.contact.email }}
-                </a>
-              {% endif %}
-            </div>
-          </div>
-        {% endif %}
-      </div>
-    </div>
+    <h1 class="font-display text-4xl lg:text-5xl leading-tight" style="color:#111">{{ member.name }}</h1>
   </div>
 
-  {# Prev / Next navigation #}
   <div class="mt-16 pt-8 border-t border-beige grid grid-cols-2 gap-4">
     {% if prev_member %}
       <a href="{{ url_for('main.team_member', member_id=prev_member.id) }}" class="group text-left">
         <div class="text-[10px] uppercase tracking-widest text-oak mb-1">← Previous</div>
         <div class="font-display text-lg group-hover:text-oak transition-colors">{{ prev_member.name }}</div>
-        <div class="text-xs text-grey">{{ prev_member.short_role }}</div>
       </a>
     {% else %}<div></div>{% endif %}
     {% if next_member %}
       <a href="{{ url_for('main.team_member', member_id=next_member.id) }}" class="group text-right">
         <div class="text-[10px] uppercase tracking-widest text-oak mb-1">Next →</div>
         <div class="font-display text-lg group-hover:text-oak transition-colors">{{ next_member.name }}</div>
-        <div class="text-xs text-grey">{{ next_member.short_role }}</div>
       </a>
     {% endif %}
   </div>
+
 </div>
 {% endblock %}
