@@ -710,12 +710,7 @@ html { scroll-behavior: smooth; }
 }
 
 .g11-card { cursor: pointer; }
-.g11-card::after {
-  content: "View profile →";
-  position: absolute; bottom: 6px; right: 12px;
-  font-size: 9px; color: #B58B62;
-  opacity: 0; transition: opacity .3s; letter-spacing: .05em;
-}
+
 .g11-card:hover::after { opacity: 1; }
 
 /* Founder section — light theme so black names are readable */

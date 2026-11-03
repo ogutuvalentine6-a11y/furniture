@@ -60,21 +60,19 @@
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
       {% for m in members %}
         <a href="{{ url_for('main.team_member', member_id=m.id) }}"
-           class="g11-card block" aria-label="View profile of {{ m.name }}">
+           class="g11-card block" aria-label="View {{ m.name }}'s profile">
           <div class="g11-card-glow"></div>
-          <div class="g11-inner">
+          <div class="g11-inner" style="text-align:center;">
             <div class="g11-shimmer"></div>
-            <div class="relative flex items-start justify-between mb-3">
+            <div style="display:flex;justify-content:center;margin-bottom:0.75rem;">
               {% if m.photo_url %}
                 <img src="{{ m.photo_url }}" alt="{{ m.name }}"
                      class="g11-avatar" style="padding:0;object-fit:cover;object-position:center top">
               {% else %}
                 <div class="g11-avatar">{{ m.initials }}</div>
               {% endif %}
-              <span class="g11-role">{{ m.short_role }}</span>
             </div>
             <div class="g11-name g11-name-advanced">{{ m.name }}</div>
-            <div class="g11-reg">{{ m.reg }}</div>
           </div>
         </a>
       {% endfor %}
