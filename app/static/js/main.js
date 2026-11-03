@@ -340,3 +340,57 @@
     });
   });
 })();
+
+
+/* ══════════════════════════════════════════════════════════════
+   GROUP 11 PROFILE MODAL
+   ══════════════════════════════════════════════════════════════ */
+window.openProfile = function(id) {
+  var dataEl = document.getElementById('g11Profiles');
+  if (!dataEl) return;
+  var profiles;
+  try { profiles = JSON.parse(dataEl.textContent); } catch(e) { return; }
+  var p = profiles[id];
+  if (!p) return;
+
+  var contactHTML = '';
+  if (p.contact && (p.contact.phone || p.contact.email)) {
+    var btns = [];
+    if (p.contact.phone) {
+      btns.push('<a href="tel:' + p.contact.phone + '" class="profile-contact-btn" style="background:#B58B62;color:#111">📞 ' + p.contact.phone + '</a>');
+    }
+    if (p.contact.email) {
+      btns.push('<a href="mailto:' + p.contact.email + '" class="profile-contact-btn" style="background:#252525;color:#F8F6F1">✉ ' + p.contact.email + '</a>');
+    }
+    contactHTML = '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5rem">' + btns.join('') + '</div>';
+  }
+
+  var skillsHTML = (p.skills || []).map(function(s){ return '<span class="profile-skill">' + s + '</span>'; }).join('');
+  var founderBadge = p.is_founder ? '<span class="profile-role-badge" style="background:#111;color:#f4d58d">★ Founder</span> ' : '';
+
+  document.getElementById('profileContent').innerHTML =
+    '<div class="profile-avatar-lg">' + (p.initials || '') + '</div>' +
+    founderBadge +
+    '<span class="profile-role-badge">' + p.role + '</span>' +
+    '<h2 id="profileName" style="font-family:\'Playfair Display\',serif;font-size:2rem;line-height:1.1;color:#111;margin:0.5rem 0 0.25rem">' + p.name + '</h2>' +
+    '<div style="font-family:ui-monospace,monospace;font-size:0.75rem;color:#666;letter-spacing:0.03em">' + p.reg + '</div>' +
+    '<p style="color:#333;line-height:1.7;margin-top:1.5rem">' + p.bio + '</p>' +
+    '<div style="margin-top:1.75rem"><div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#8a6844;font-weight:700;margin-bottom:0.5rem">Contribution to FurnitureHub</div>' +
+    '<p style="color:#444;line-height:1.6;font-size:0.92rem">' + p.contribution + '</p></div>' +
+    '<div style="margin-top:1.75rem"><div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#8a6844;font-weight:700;margin-bottom:0.5rem">Project Vision</div>' +
+    '<p style="color:#444;line-height:1.6;font-size:0.92rem;font-style:italic">"' + p.project_vision + '"</p></div>' +
+    '<div style="margin-top:1.75rem"><div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#8a6844;font-weight:700;margin-bottom:0.5rem">Skills</div><div>' + skillsHTML + '</div></div>' +
+    contactHTML;
+
+  document.getElementById('profileModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeProfile = function() {
+  document.getElementById('profileModal').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') window.closeProfile();
+});

@@ -694,3 +694,94 @@ html { scroll-behavior: smooth; }
   color: #252525;
   box-shadow: 0 8px 24px -6px rgba(181,139,98,0.5);
 }
+
+
+/* ══════════════════════════════════════════════════════════════
+   PROFILE MODAL — clickable Group 11 cards · black names
+   ══════════════════════════════════════════════════════════════ */
+.g11-name-advanced {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #111111 !important;
+  color: #111111 !important;
+  animation: none !important;
+  font-weight: 800 !important;
+}
+
+.g11-card { cursor: pointer; }
+.g11-card::after {
+  content: "View profile →";
+  position: absolute; bottom: 6px; right: 12px;
+  font-size: 9px; color: #B58B62;
+  opacity: 0; transition: opacity .3s; letter-spacing: .05em;
+}
+.g11-card:hover::after { opacity: 1; }
+
+/* Founder section — light theme so black names are readable */
+.founder-light { background: linear-gradient(180deg, #F8F6F1, #E9E1D5); }
+.founder-light .founder-card {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(181,139,98,0.4);
+}
+
+/* Modal overlay */
+#profileModal {
+  position: fixed; inset: 0; z-index: 99999;
+  display: none; align-items: flex-start; justify-content: center;
+  padding: 1rem; overflow-y: auto;
+}
+#profileModal.open { display: flex; }
+.profile-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(10,10,10,.85);
+  backdrop-filter: blur(10px);
+}
+.profile-panel {
+  position: relative; width: 100%; max-width: 720px;
+  margin: 3rem auto;
+  background: linear-gradient(180deg, #F8F6F1 0%, #E9E1D5 100%);
+  border-radius: 1.5rem; padding: 2.5rem;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,.6);
+  animation: profileSlide .35s cubic-bezier(.16,1,.3,1);
+}
+@keyframes profileSlide {
+  from { opacity: 0; transform: translateY(30px) scale(.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.profile-close {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  background: rgba(0,0,0,.08); color: #111; font-size: 1.5rem;
+  display: grid; place-items: center; cursor: pointer;
+  transition: background .2s; border: none;
+}
+.profile-close:hover { background: rgba(0,0,0,.18); }
+.profile-avatar-lg {
+  width: 96px; height: 96px; border-radius: 1.5rem;
+  background: linear-gradient(135deg, #B58B62, #f4d58d);
+  display: grid; place-items: center;
+  font-family: "Playfair Display", serif; font-size: 2.25rem;
+  font-weight: 700; color: #111; margin-bottom: 1.25rem;
+  box-shadow: 0 12px 32px -8px rgba(181,139,98,.4);
+}
+.profile-role-badge {
+  display: inline-block; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .15em; padding: 6px 14px; border-radius: 999px;
+  background: rgba(181,139,98,.2); color: #8a6844;
+  font-weight: 700; margin-bottom: 1rem;
+}
+.profile-skill {
+  display: inline-block; font-size: 11px; padding: 4px 10px;
+  border-radius: 999px; background: rgba(37,37,37,.08);
+  color: #252525; font-weight: 600; margin: 3px 4px 3px 0;
+}
+.profile-contact-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 999px; font-size: 13px;
+  font-weight: 600; transition: all .2s; text-decoration: none;
+}
+@media (max-width: 640px) {
+  .profile-panel { padding: 1.75rem; margin: 2rem auto; }
+  .profile-avatar-lg { width: 72px; height: 72px; font-size: 1.75rem; }
+}
