@@ -14,9 +14,22 @@
   <div class="space-y-3">
     {% for m in members %}
       <a href="{{ url_for('main.team_member', member_id=m.id) }}"
-         class="group flex items-center justify-between gap-4 bg-white border border-beige rounded-2xl px-6 py-5 hover:border-charcoal transition-all hover:-translate-y-0.5 hover:shadow-lg">
-        <div class="font-display text-xl text-charcoal group-hover:text-oak transition-colors">{{ m.name }}</div>
-        <div class="text-sm text-grey font-mono whitespace-nowrap">{{ m.reg }}</div>
+         class="group flex items-center gap-5 bg-white border border-beige rounded-2xl px-5 py-4 hover:border-charcoal transition-all hover:-translate-y-0.5 hover:shadow-lg">
+        <div class="w-14 h-14 rounded-xl overflow-hidden bg-oak/20 shrink-0">
+          {% if m.photo_url %}
+            <img src="{{ m.photo_url }}" alt="{{ m.name }}"
+                 class="w-full h-full object-cover object-center">
+          {% else %}
+            <div class="w-full h-full grid place-items-center font-display text-lg font-bold text-charcoal">{{ m.initials }}</div>
+          {% endif %}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="font-display text-xl text-charcoal group-hover:text-oak transition-colors">{{ m.name }}</div>
+          <div class="text-sm text-grey font-mono mt-0.5">{{ m.reg }}</div>
+        </div>
+        <svg class="w-5 h-5 text-grey group-hover:text-oak transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
       </a>
     {% endfor %}
   </div>
